@@ -137,7 +137,7 @@ class FeedbackForm(forms.Form):
                             'rows':"5",
                             'cols': "10",
                             "name": "",
-                            "placeholder" : _("Fikir mulohaza va takliflaringizni kiriting")
+                            "placeholder": _("Fikir mulohaza va takliflaringizni kiriting")
                         }
                     )
                  )

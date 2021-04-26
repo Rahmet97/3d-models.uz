@@ -140,18 +140,18 @@ WSGI_APPLICATION = 'model_3d.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    #  'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'model3d_db',
-    #     'USER': 'models3d_admin',
-    #     'PASSWORD': 'Mexroj3dmodels.uz',
-    #     'HOST': 'localhost',
-    #     'PORT': '5432',
-    # }
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+     'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'model3d_db',
+        'USER': 'models3d_admin',
+        'PASSWORD': 'Mexroj3dmodels.uz',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
 }
 
 # Password validation
