@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load thumbnail %}
+
+	{% block css %}
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+		integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+
+	<!-- style-link -->
+	<link rel="stylesheet" href="{% static 'css/style2.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+	{% endblock css %}
+
+	{% block title %} <title>{% trans "To'lov qilish" %}</title> {% endblock title %}
+	
+	{% block bodycontent %}
+
+		{% get_current_language as LANGUAGE_CODE %}
+		<input type='hidden' id='language_type' value="{{ LANGUAGE_CODE }}">
+		
+		<section class="content">
+			<!--        <div class="content__img">-->
+			<!--            <img src="./img/content-img.jpg" alt="content-img">-->
+			<!--        </div>-->
+
+			<!-- Navbar -->
+			{% include 'includes/navbar.html' %}
+			<!-- end Navbar -->
+
+        </section>
+        <section class="payment">
+			<form method="POST">
+				{% csrf_token%}
+				<p class="payment__text">{% trans 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.	Ultrices volutpat mollis vel diam proin at diam.' %}
+					<span class="payment__desc">
+						{% trans 'Lorem volutpat malesuada lobortis eget enim amet est id auctor.' %}</span>
+				</p>
+				<p class="payment__item">
+					<label class="payment__title" for="card">{% trans "Karta raqami" %}</label>
+					<!-- <input class="payment__input" id="card" name="card" onkeyup="space()" type="text" maxlength="19"
+						placeholder="**** **** **** ****"> -->
+					{{ payform.number }}
+					<img class="payment__uzcard__img" src="{% static 'img/icons/uzcard.png' %}" alt="uzcard">
+					<img class="payment__uzcard__imgxumo" src="{% static 'img/icons/xumo.png' %}" alt="xumo">
+				</p>
+
+				<p class="payment__item">
+					<label class="payment__title" for="data">{% trans "Muddati" %}</label>
+					<!-- <input class="payment__input" maxlength="5" id="data" name="data" type="text" placeholder="00/00"> -->
+					{{ payform.exp_date }}
+				</p>
+				<!-- <p class="payment__item">
+					<label class="payment__title" for="email">Elektron pochta</label>
+					<input class="payment__input" id="email" name="email" type="email" placeholder="email" required>
+				</p> -->
+				<p class="payment__item">
+					<button class="payment__submit" type="submit" id="submit">OK</button>
+				</p>
+			</form>
+		</section>
+
+		{% endblock bodycontent %}
+
+		{% block js %}
+	<!--jQuery-->
+	<script src="{% static 'jQuery/jquery.min.js' %}"></script>
+	<script src="{% static 'jQuery/lips/owlcarousel2/owl.carousel.min.js' %}"></script>
+	<script src="{% static 'jQuery/jQuery.js' %}"></script>
+
+	<!--/jQuery-->
+	<!-- <script src="js/bundle.js"></script> -->
+	<!--/javascript-->
+
+	<!--    bundle js swiper-->
+	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+	<script src="{% static 'js/bundle.js' %}"></script>
+	<script src="{% static 'js/main.js' %}"></script>
+
+	<script>
+		
+//karta raqam input
+function space(el, after) {
+   after = after || 4;
+   let v = el.value.replace(/[^\dA-Z]/g, ''),
+       reg = new RegExp(".{" + after + "}","g")
+   el.value = v.replace(reg, function (a, b, c) {
+       return a + ' ';
+   });
+}
+
+let el = document.getElementById('card');
+el.addEventListener('keyup', function () {
+   space(this, 4);
+});
+
+
+//muddat input
+document.getElementById('data').addEventListener('keydown', function (e) {
+   let value = this.value.replace(/\s+/g, '/');
+   let isBackspace = e.key === 'Backspace';
+
+   if ((e.key.length === 1 && /^[^\d\s]+$/.test(e.key)) || (!isBackspace && value.length === 4)) {
+       e.preventDefault();
+       return false;
+   }
+
+   this.value = value.split('').reverse().join('').replace(/\B(?=(\d{2})+(?!\d))/g, "/").split('').reverse().join('').trim();
+});
+
+	</script>
+
+	{% endblock js %}

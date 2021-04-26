@@ -1,0 +1,160 @@
+<!-- End Search Script -->
+		<script>
+	
+		function search_quer($this){
+			event.preventDefault();
+
+			var query = document.getElementById('search_input_field').value
+			document.getElementById('search_input_field').value = " "
+			var url =  "{% url 'Core:search_query' %}"
+			console.log(query)
+			if (query.length != 0){
+			
+				fetch(url, {
+					method:'POST',
+					headers:{
+						'Content-Type':'application/json',
+						'Accept': 'application/json',
+						'X-CSRFToken':csrftoken,
+					}, 
+					body:JSON.stringify({'query': query})
+				})
+				.then((response) => {
+				return response.json();
+				})
+				.then((data) => {
+					if (data == "нет продукта"){
+						$("#search-result-modal").html("");
+						$("#search-result-modal").prepend(
+							`
+								<div class="modal__result">
+									<div class="product__name">
+										<h3 class="product__name--title">Нет продукта</h3>
+									</div>
+								</div>
+							`
+						)
+					} else {
+						
+						var instance = JSON.parse(data);
+						$("#search-result-modal").html("");
+
+						for ( var i = 0; i < instance.length; i++){
+							var fields = instance[i]["fields"];
+							console.log(instance)
+							
+							console.log("fields", fields)
+
+							var image = fields["image"]
+
+							var discount = fields["discount"]
+							var price = "Free"
+							if (fields["paid"] === true){
+								if (discount == null){
+								price = fields["price"]
+								}else{
+									price = fields["discount"]
+								}
+							}else{
+								price = "Free"
+							}
+							
+							
+							$("#search-result-modal").prepend(
+								`
+									<div class="modal__result">
+										<img src="${fields["imageURL"]||""}" alt="product images" class="modal__result--image"></img>
+										<div class="product__name">
+											<a href="/model/${fields["slug"]}/">
+												<h3 class="product__name--title">${fields["name"]||""}</h3>
+												<p class="product__name--subtitle">${fields["short_info"]||""}</p>
+											</a>
+										</div>
+										<strong class="product__price">${price}</strong>
+									</div>
+								`
+							)
+						}
+					}
+				});
+			} else {
+				$("#search-result-modal").html("");
+				$("#search-result-modal").prepend(
+					`
+						<div class="modal__result">
+							<div class="product__name">
+								<h3 class="product__name--title">Нет продукта</h3>
+							</div>
+						</div>
+					`
+				)
+			}
+		}
+  
+		
+
+	</script>
+	<!-- End Search Script -->
+
+	
+	<!-- Modal window -->
+	<div class="modal--bg"></div>
+	<div class="modal">
+		<div class="modal__title">
+			<p>Search result </p>
+			<p id="closeBtn2"><i class="fa fa-times" id="closeBtn"></i></p>
+		</div>
+		<div class="modal__main" id = "search-result-modal">
+			<div class="modal__result">
+				<img src="../static/img/img-1.jpg" alt="product images" class="modal__result--image"></img>
+				<div class="product__name">
+					<h3 class="product__name--title">Product name..</h3>
+					<p class="product__name--subtitle">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione veritatis enim maiores repellendus obcaecati provident.</p>
+				</div>
+				<strong class="product__price">$20</strong>
+			</div>
+		</div>
+	</div>
+		
+	<style>
+		
+.modal__result {
+	display: flex;
+	justify-content: space-between;
+	align-items: start;
+	padding: 20px 7px 20px 0;
+  border-bottom: 1px solid #444;
+}  
+.modal__result--image {
+	width: 140px;
+	height: 100px;
+	object-fit: cover;
+	object-position: center;    
+	margin: 0px 4px 0px 0px;
+}
+.product__name {
+	width: 40%;
+}
+.product__name--subtitle {
+	color: #444;   
+	margin: 10px 0px 0px 0px;
+}  
+.product__price {
+	font-size: 18px;
+	
+}  
+.sliderArrow {
+	font-size: 34px;
+	color: #444;
+	font-weight: bold;
+	transition: color ease-in .3s;
+	padding: 5px;
+}
+.sliderArrow:hover {
+	color: #000;
+}
+	</style>
+<!--/ Modal window -->
+
+
+

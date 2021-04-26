@@ -1,0 +1,250 @@
+.blog {
+	&__line {
+		margin-top: 70px;
+		border-bottom: 2px solid #000;
+		width: 100%;
+	}
+
+	&__title {
+		font-size: 40px;
+		font-weight: bold;
+		text-align: center;
+		background-color: #fff;
+		width: 180px;
+		height: 70px;
+		margin: -30px auto 150px auto;
+		padding: 0 15px;
+	}
+
+	&__body {
+		max-width: 1050px;
+		margin: 0 auto;
+	}
+
+	&__items {
+		margin: 0px 0px 110px 0px;
+	}
+	&__item {
+		color: #111;
+		&:hover {
+			color: #444;
+		}
+		img {
+			width: 280px !important;
+		}
+	}
+	&__item--subtitle {
+		font-size: 24px;
+		text-align: center;
+		margin: 40px 0px 0px 0px;
+	}
+	&__item--img {
+		width: 280px;
+		height: 150px;
+	}
+
+	&__slider--title {
+		text-align: center;
+		margin: 0px 0px 60px 0px;
+		font-size: 35px;
+		font-weight: 700;
+	}
+	.owl-prev {
+		position: absolute;
+		top: 40%;
+		left: -50px;
+		transform: translateY(-40%);
+		outline: none;
+		&:hover {
+			background-color: #fff !important;
+		}
+	}
+	.owl-next {
+		position: absolute;
+		top: 40%;
+		right: -50px;
+		transform: translateY(-40%);
+		outline: none;
+		&:hover {
+			background-color: #fff !important;
+		}
+	}
+	.prev--btn,
+	.next--btn {
+		width: 40px;
+		outline: none;
+		border-radius: 50%;
+		&:hover {
+			background-color: #fff1e6;
+		}
+	}
+
+	&__counter--number {
+		font-size: 40px;
+		font-weight: 700;
+		text-align: center;
+		color: #6d6d6d;
+		margin: 0px 0px 30px 0px;
+		cursor: pointer;
+		span {
+			font-weight: 500;
+			font-size: 20px;
+		}
+	}
+	&__btns {
+		max-width: 500px;
+		display: flex;
+		justify-content: space-between;
+		margin: 0 auto 150px;
+	}
+
+	&__btns--next {
+		font-size: 37px;
+		color: #ffffff;
+		font-weight: 500;
+		background: #68dea0;
+		border-radius: 7px;
+		display: flex;
+		align-items: center;
+		padding: 10px 44px;
+		outline: none;
+		img {
+			margin: 0px 0px 0px 20px;
+		}
+		transition: background 0.2s ease 0s;
+		&:hover {
+			background: rgba(69, 182, 122, 0.774);
+		}
+	}
+
+	&__btns--back {
+		font-size: 27px;
+		color: #ffffff;
+		font-weight: 500;
+		background: #68dea0;
+		border-radius: 7px;
+		padding: 5px 31px 5px 30px;
+		align-self: flex-end;
+		display: flex;
+		align-items: center;
+		outline: none;
+		transition: background 0.2s ease 0s;
+		img {
+			margin: 0px 20px 0px 0px;
+		}
+		&:hover {
+			background: rgba(69, 182, 122, 0.774);
+		}
+	}
+}
+@media (min-width: 1600px) {
+	.blog__body {
+		max-width: 1340px !important;
+	}
+}
+
+// 	QUALITY SECTION STYLE;
+.quality {
+	background: #444444;
+	&__body {
+		max-width: 100%;
+		padding: 60px 80px 100px;
+		margin: 0 auto;
+	}
+
+	&__cards {
+		display: flex;
+		justify-content: space-around;
+		width: 100%;
+		color: #ffffff;
+		flex-wrap: wrap;
+		margin: 0 auto;
+	}
+
+	&__card {
+		width: 260px;
+		margin: 40px 12px 0px 0px;
+	}
+
+	&__card--img {
+		width: 100px;
+		height: 100px;
+		overflow: hidden;
+		margin: 0 auto;
+
+		img {
+			width: 80px;
+			height: 80px;
+			object-fit: cover;
+			object-position: top;
+		}
+	}
+
+	&__card--title {
+		font-size: 24px;
+		font-weight: 900;
+		margin: 15px 0px 20px;
+		text-align: center;
+	}
+
+	&__card--subtitle {
+		width: 250px;
+		text-align: center;
+		font-size: 17px;
+	}
+}
+
+.swiper-container {
+	max-width: 1150px !important;
+	width: 100%;
+	padding-top: 150px;
+	padding-bottom: 50px;
+}
+.swiper-slide {
+	background-position: center;
+	background-size: cover;
+	width: 400px;
+	padding: 0px 0px 10px 0px;
+	background: #fff;
+}
+
+.swiper-slide img {
+	width: 100%;
+	height: 280px;
+	object-fit: cover;
+	object-position: center;
+}
+
+.company {
+	max-height: 700px;
+	&__title {
+		text-align: center;
+		margin: 80px 0px 0px 0px;
+		font-weight: 500;
+		font-size: 40px;
+		color: #000;
+	}
+	&__slider {
+		padding: 0px 0px 40px 0px;
+	}
+	
+	&__slider--title {
+		font-size: 18px;
+		text-align: center;
+		background-color: #fff;
+		padding: 10px 0;
+		color: #000;
+	}
+
+	&__slider--text {
+		padding: 5px 7px 15px 5px;
+		background-color: #fff;
+		box-shadow: 2px 2px 4px #777;
+		font-size: 14px;
+		color: #444;
+		text-align: center;
+	}
+}
+.swiper-container {
+	max-width: 1150px;
+}

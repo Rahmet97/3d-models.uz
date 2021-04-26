@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- icons-link -->
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+		integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<link rel="stylesheet" href="./jQuery/lips/owlcarousel2/assets/owl.carousel.min.css">
+	<link rel="stylesheet" href="./jQuery/lips/owlcarousel2/assets/owl.theme.default.min.css">
+
+	<link rel="stylesheet" href="./css/swiper.min.css">
+	<!-- style-link -->
+	<link rel="stylesheet" href="css/style.css">
+	<title>pay form</title>
+</head>
+
+<body>
+	<div class="wrapper">
+		<header class="header">
+			<div class="header__body">
+				<a href="index.html" class="header__logo"><img src="./img/logo.png" alt="logo"></a>
+				<div class="header__messengers">
+					<a href="email:abbos@gmail.com"><img src="./img/icons/email.svg" alt="email icon"> abbos@gmail.com</a>
+					<a href="#"><img src="./img/icons/instagram.svg" alt="instagram icon"></a>
+					<a href="#"><img src="./img/icons/youtube.svg" alt="youtube icon"></a>
+					<a href="#"><img src="./img/icons/telegram.svg" alt="telegram icon"></a>
+					<a href="#"><img src="./img/icons/facebook.svg" alt="facebook icon"></a>
+				</div>
+				<div class="header__signin">
+					<img src="./img/icons/bar-chart.svg" alt="bar-chart icon">
+					<p>1123</p>
+					<a href="register.html" class="header__registration">Ro'yhatdan o'tish</a>
+					<a href="#" class="header__order">Buyurtma berish</a>
+					<a href="shopingCard.html" class="header__shopcard">
+						<img src="./img/icons/shopping-cart.svg" alt="shoping card">
+					</a>
+				</div>
+				<div class="header__language">
+					<button class="uz active">uzb</button>
+					<button class="ru">ru</button>
+					<button class="eng">eng</button>
+				</div>
+				<!-- burger -->
+				<div class="navbar__burger h">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+			</div>
+		</header>
+
+		<section class="content">
+
+			<div class="content__navbar">
+				<ul class="content__navbar--list free">
+					<li><a href="index.html">Bosh menyu</a></li>
+					<li><a href="sale.html">Aksiya</a></li>
+					<li><a href="free.html">Bepul mahsulotlar</a></li>
+					<li><a href="portfolio.html">Portfolio</a></li>
+					<li><a href="Videos.html">Videolar</a></li>
+					<li><a href="about.html">Biz haqimizda</a></li>
+					<li><a href="Aloqa.html">Aloqa</a></li>
+				</ul>
+			</div>
+
+
+			<div class="payForm__body-2">
+				<h2>Yangi parolni kiriting va tastiqlang!</h2>
+
+				<div class="verification">
+					<div class="wrapp">
+						<input type="password" name="one" placeholder="yangi parol..">
+						<i class="fa fa-eye eye" onclick="showHide()"></i>
+					</div>
+					
+					<div class="wrapp">
+						<input type="password" placeholder="qaytadan yozing..">
+					</div>
+				</div>
+
+				<button><a href="#" class="btn">ok</a></button>
+			</div>
+
+
+		</section>
+
+
+
+
+
+		<footer class="footer">
+			<div class="footer__body">
+
+				<div class="footer__info">
+					<a class="footer__info--logo">Logo</a>
+					<div class="footer__info--title">Aloqa Ma'lumotlari</div>
+					<a href="tel:+99899 403-68-28" class="footer__info--subtitle">+998994036828</a>
+					<div class="footer__info--subtitle">khamidullaev@gmail.com</div>
+					<div class="footer__info--messangers">
+						<a href="#"><i class="fa fa-instagram"></i></a>
+						<a href="#"><i class="fa fa-youtube"></i></a>
+						<a href="#"><i class="fa fa-telegram"></i></a>
+						<a href="#"><i class="fa fa-facebook"></i></a>
+					</div>
+				</div>
+
+				<div class="footer__map">
+					<div class="mapouter">
+						<div class="gmap_canvas"><iframe width="700" height="360" id="gmap_canvas"
+								src="https://maps.google.com/maps?q=uzbekistan%2C%20toshkent%2C%20mirzo%20ulugbek&t=&z=13&ie=UTF8&iwloc=&output=embed"
+								frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a
+								href="https://2piratebay.org">free movies</a></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="footer__creators">
+				<p><span>Copyright ©️</span> 2020 <strong>Zafar Plast</strong> Barcha huquqlar himoyalangan</p>
+				<p>Sayt yaratuvchi Instant Company</p>
+			</div>
+		</footer>
+
+	</div>
+
+	<style>
+		input {
+			padding: 5px 2px 5px 10px;
+			font-size: 18px;
+			border-bottom-left-radius: 8px;
+			border-top-left-radius: 8px;
+			outline: none;
+		}
+	
+		.verification {
+			display: flex;
+			flex-direction: column;
+			margin: 50px 0;
+		}
+		.wrapp {
+			margin-top: 30px;
+			border: 1px solid #777;
+			border-radius: 3px;
+			width: 270px;
+			box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.251);
+		}
+		.fa {
+			background: #fff;
+			color: #43A049;
+			font-size: 20px;
+			padding: 8px;
+			margin-left: -4px;
+			cursor: pointer;
+		}
+
+		.payForm__body-2 {
+			margin: 70px auto 0;
+			min-height: 90vh;
+			width: calc(100% - 20vw);
+			max-width: 1366px;
+		}
+
+		.footer {
+			margin-top: 80px;
+		}
+		button .btn {
+			padding: 13px 35px;
+			
+			text-transform: uppercase;
+			text-align: center;
+			background: #05E600;
+			box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.31);
+			border-radius: 5px;
+			color: #fff;
+			font-size: 16px;
+			transition: all ease-in .3s;
+		}
+	</style>
+
+
+
+	<!--jQuery-->
+	<script src="jQuery/jquery.min.js"></script>
+	<script src="./jQuery/lips/owlcarousel2/owl.carousel.min.js"></script>
+	<script src="jQuery/jQuery.js"></script>
+
+	<script src="js/swiper.min.js"></script>
+	<!--/jQuery-->
+	<script src="js/main.js"></script>
+	<script>
+		let input = document.querySelector('input');
+		let show_hide = document.querySelector('i.fa');
+
+		function showHide() {
+			if (input.type == "password") {
+				show_hide.className = "fa fa-eye-slash";
+				input.type = "text";
+
+			} else {
+				show_hide.className = "fa fa-eye";
+				input.type = "password";
+			}
+		}
+
+	</script>
+</body>
+
+</html>

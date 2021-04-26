@@ -1,0 +1,503 @@
+{% extends 'base.html' %}
+{% load static %}
+
+	{% block css %}
+
+		<!-- icons-link -->
+		<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+			integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+		<link rel="stylesheet" href="{% static 'jQuery/lips/owlcarousel2/assets/owl.carousel.min.css' %}">
+		<link rel="stylesheet" href="{% static 'jQuery/lips/owlcarousel2/assets/owl.theme.default.min.css' %}">
+
+		<link rel="stylesheet" href="{% static 'css/swiper.min.css' %}">
+		<!-- style-link -->
+		<link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+		<link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+		<style>
+
+			#searchFirst {
+				font-size: 25px;
+				background-color: white;
+			}
+			#searchFirst > .fa {
+				padding-left: 8px;
+			}
+			.modal__result {
+				display: flex;
+				justify-content: space-between;
+				align-items: start;
+				padding: 20px 7px 20px 0;
+				border-bottom: 1px solid #444;
+			}  
+			.modal__result--image {
+				width: 140px;
+				height: 100px;
+				object-fit: cover;
+				object-position: center;    
+				margin: 0px 4px 0px 0px;
+			}
+			.product__name {
+				width: 40%;
+			}
+			.product__name--subtitle {
+				color: #444;   
+				margin: 10px 0px 0px 0px;
+			}  
+			.product__price {
+				font-size: 18px;
+				
+			}  
+			.sliderArrow {
+				font-size: 34px;
+				color: #444;
+				font-weight: bold;
+				transition: color ease-in .3s;
+				padding: 5px;
+			}
+			.sliderArrow:hover {
+				color: #000;
+			}
+			.blog__item--images{
+				object-fit: cover;
+			}
+			.blog__item--subtitle{
+				/* word-break: break-all; */
+				overflow-wrap: break-word;
+				width: 280px;
+				text-align: center;
+			}
+		</style>
+
+	{% endblock css %}
+
+	{% block title %} <title>3D Model</title> {% endblock title %}
+
+	{% block bodycontent %}
+
+		<section class="content">
+			<div class="content__img">
+				<img src="{% static 'img/content-img.jpg' %}" alt="content-img">
+			</div>
+
+			<!-- Navbar -->
+			{% include 'includes/navbar.html' %}
+			<!-- end Navbar -->
+
+			<div class="content__text">
+				<div class="content__title">Choose up-to-date and ideal <br> 3d models</div>
+				<form class="content__form" method="get">
+					<label for="">
+						<input type="text" id="search_input_field" name="search" placeholder="Qidiruv..." value required>
+						<button type="submit" onclick="search_query(this); return false;" id="searchFirst">
+							<i class="fa fa-search"></i>
+						</button>
+					</label>
+				</form>
+			</div>
+		</section> 
+
+		<!-- End Search Script -->
+		<script>
+			function search_query($this){
+				event.preventDefault();
+
+				var query = document.getElementById('search_input_field').value
+				document.getElementById('search_input_field').value = ""
+				var url =  "{% url 'Core:search_query' %}"
+				console.log(query)
+				//if 
+				var space = query.replace(/\s+/g, '')
+				if (space.length != 0 && query != null){
+					$.ajax({
+						type: 'GET',
+						url: url,
+						data : { 
+							'query': query,
+						},
+						success: function(response) {
+							var instance = JSON.parse(response["instance"]);
+							var images_url = response["images_url"];
+							console.log(instance)
+							$("#search-result-modal-page").html("");
+							for (var i=0; i < instance.length; i++){
+								var fields = instance[i]['fields']
+								var pk = instance[i]['pk']
+								var image_url = images_url[pk]
+								console.log("fields: ", fields)
+								console.log("pk: ", pk)
+
+								var discount = fields["discount"]
+								var price = 0
+								if (fields['paid'] == true){
+									if (discount == null){
+										price = fields["price"].toString() + " so'm"
+									}else{
+										price = fields["discount"].toString() + " so'm"
+									}
+								}else{
+									price = 'free'
+								}
+								
+
+								var quanity = fields["quantity"]
+								$("#search-result-modal-page").prepend(
+									`
+									<div class="modal__result">
+										<img src="${image_url}" alt="product images" class="modal__result--image"></img>
+										<div class="product__name">
+											<a href="/model/${fields['slug']}">
+												<h3 class="product__name--title">${fields["name"]||""}</h3>
+												<p class="product__name--subtitle">${fields["short_info"]||""}</p>
+											</a>
+										</div>
+										<strong class="product__price">${price}</strong>
+									</div>
+									`
+								)	
+							}
+						},
+						error: function() { 
+							console.log('Houston, we have a problem!');
+						}
+					});
+				} else {
+					$("#search-result-modal-page").html("");
+					$("#search-result-modal-page").prepend(
+						`
+							<div class="modal__result">
+								<div class="product__name">
+									<h3 class="product__name--title">Qidiruv Natijasi topilmadi ;)</h3>
+								</div>
+							</div>
+						`
+					)
+				}
+			}
+
+		</script>
+	<!-- End Search Script -->
+
+		<!-- Modal window -->
+		<div class="modal--bg"></div>
+		<div class="modal">
+			<div class="modal__title">
+				<p>Qidiruv Natijasi</p>
+				<p id="closeBtn2"><i class="fa fa-times" id="closeBtn"></i></p>
+			</div>
+			<div class="modal__main" id="search-result-modal-page">
+				<!-- <div class="modal__result">
+					<img src="../static/img/img-1.jpg" alt="product images" class="modal__result--image"></img>
+					<div class="product__name">
+						<h3 class="product__name--title">Product name..</h3>
+						<p class="product__name--subtitle">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione veritatis enim maiores repellendus obcaecati provident.</p>
+					</div>
+					<strong class="product__price">$20</strong>
+				</div> -->
+			</div>
+		</div>
+		
+		<!--/ Modal window -->
+
+		<section class="blog">
+			<div class="blog__line"></div>
+			<div class="blog__title">Katalog</div>
+			<div class="blog__body">
+				<div class="blog__slider">
+					{% for category in object_list %}
+						{% if category.product_category.all %}	
+							<div class="blog__slider--title">{{ category.name }}</div>
+							<div class="blog__items">
+								<div class="owl-carousel owl-theme">
+									{% for models in category.product_category.all %}
+										<a href="{% url 'Core:category-view' category.pk %}" class="blog__item">
+											<div class="blog__item--img">
+												<img src="{{ models.imageURL }}" alt="slider-img">
+											</div>
+											<div class="blog__item--subtitle">{{ models.name }} <br> </div>
+										</a>
+									{% endfor %}
+								</div>
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+				<!-- <div class="blog__counter">
+					<div class="blog__counter--number">01 / <span>10</span></div>
+				</div>
+				<div class="blog__btns">
+					<button class="blog__btns--back"> <img src="{% static 'img/icons/arrow-back.svg' %}" alt="back icon">Back</button>
+					<a href="sale.html" class="blog__btns--next">Next <img src="{% static 'img/icons/next-icon.svg' %}" alt="next icon"></a>
+				</div> -->
+				<!-- Paginator -->
+				{% if is_paginated %}
+
+					{% include "includes/paginator.html" %}
+
+				{% endif %}
+				<!-- End Paginator -->
+			</div>
+		</section>
+
+		<section class="quality">
+			<div class="quality__body">
+				<div class="quality__cards">
+
+					<div class="quality__card">
+						<div class="quality__card--img"><img src="{% static 'img/icons/cost.svg' %}" alt="cost-images"></div>
+						<div class="quality__card--title">Ajoyib narx</div>
+						<div class="quality__card--subtitle">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non lacus ullamcorper ullamcorper ultrices
+							a non scelerisque hendrerit nisl. Ut eget libero eu at sem egestas. Cursus.
+						</div>
+					</div>
+
+					<div class="quality__card">
+						<div class="quality__card--img"><img src="{% static 'img/icon\'s/new-1.svg' %}" alt="cost-images"></div>
+						<div class="quality__card--title">Kreativlik</div>
+						<div class="quality__card--subtitle">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non lacus ullamcorper ullamcorper ultrices
+							a non scelerisque hendrerit nisl. Ut eget libero eu at sem egestas. Cursus.
+						</div>
+					</div>
+
+					<div class="quality__card">
+						<div class="quality__card--img"><img src="{% static 'img/icons/safe.svg' %}" alt="cost-images"></div>
+						<div class="quality__card--title">Eng kuchli himoya</div>
+						<div class="quality__card--subtitle">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non lacus ullamcorper ullamcorper ultrices
+							a non scelerisque hendrerit nisl. Ut eget libero eu at sem egestas. Cursus.
+						</div>
+					</div>
+
+					<div class="quality__card">
+						<div class="quality__card--img"><img src="{% static 'img/icons/quality.svg' %}" alt="cost-images"></div>
+						<div class="quality__card--title">Eng kuchli Sifat</div>
+						<div class="quality__card--subtitle">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non lacus ullamcorper ullamcorper ultrices
+							a non scelerisque hendrerit nisl. Ut eget libero eu at sem egestas. Cursus.
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- <section class="company">
+			<div class="company__body">
+				<div class="company__title">Top modellar</div>
+				<div class="company__slider">
+					<div class="swiper-container">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								<img src="{% static 'img/img-1.jpg' %}" alt="foto">
+								<div class="company__slider--text">
+									<p class="company__slider--title">Anvarov Akrom</p>
+									Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis laudantium sint, qui eos
+									rerum magni!
+								</div>
+							</div>
+							<div class="swiper-slide">
+								<img src="{% static 'img/img-2.jpg' %}" alt="foto">
+								<div class="company__slider--text">
+									<p class="company__slider--title">Anvarov Akrom</p>
+									Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis laudantium sint, qui eos
+									rerum magni!
+								</div>
+							</div>
+							<div class="swiper-slide">
+								<img src="{% static 'img/img-3.jpg' %}" alt="foto">
+								<div class="company__slider--text">
+									<p class="company__slider--title">Anvarov Akrom</p>
+									Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis laudantium sint, qui eos
+									rerum magni!
+								</div>
+							</div>
+							<div class="swiper-slide">
+								<img src="{% static 'img/img-4.jpg' %}" alt="foto">
+								<div class="company__slider--text">
+									<p class="company__slider--title">Anvarov Akrom</p>
+									Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis laudantium sint, qui eos
+									rerum magni!
+								</div>
+							</div>
+							<div class="swiper-slide">
+								<img src="{% static 'img/img-5.jpg' %}" alt="foto">
+								<div class="company__slider--text">
+									<p class="company__slider--title">Anvarov Akrom</p>
+									Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis laudantium sint, qui eos
+									rerum magni!
+								</div>
+							</div>
+							<div class="swiper-slide">
+								<img src="{% static 'img/img-6.jpeg' %}" alt="foto">
+								<div class="company__slider--text">
+									<p class="company__slider--title">Anvarov Akrom</p>
+									Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis laudantium sint, qui eos
+									rerum magni!
+								</div>
+							</div>
+							<div class="swiper-slide">
+								<img src="{% static 'img/img-2.jpg' %}" alt="foto">
+								<div class="company__slider--text">
+									<p class="company__slider--title">Anvarov Akrom</p>
+									Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis laudantium sint, qui eos
+									rerum magni!
+								</div>
+							</div>
+							<div class="swiper-slide">
+								<img src="{% static 'img/img-4.jpg' %}" alt="foto">
+								<div class="company__slider--text">
+									<p class="company__slider--title">Anvarov Akrom</p>
+									Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis laudantium sint, qui eos
+									rerum magni!
+								</div>
+							</div>
+						</div>
+						Add Pagination 
+						<div class="swiper-pagination"></div>
+					</div>
+				</div>
+			</div>
+		</section> -->
+	{% endblock bodycontent %}
+
+	{% block js %} 
+
+		<script>
+			let modal = document.querySelector('.modal')
+			let modalBg = document.querySelector('.modal--bg')
+			let searchInput = document.querySelector('#search_input_field')
+			let searchButton = document.querySelector('.content__searchbtn')
+			let search = document.querySelector('input[type="search"]')
+			let modalMain = document.querySelector('.modal__main')
+			
+			
+			closeBtn.addEventListener('click', function () {
+				hideResult()
+			})
+
+			modalBg.addEventListener('click', function () {
+				hideResult()
+			})
+			function hideResult() {  
+				modalBg.style.opacity = '0'
+				modalBg.style.visibility = 'hidden' 
+				modal.style.opacity = '0'
+				modal.style.visibility = 'hidden'
+			}
+			hideResult()
+
+			
+			searchFirst.addEventListener('click', function() {
+				modalBg.style.opacity = '1' 
+				modalBg.style.visibility = 'visible'
+				modal.style.opacity = '1'
+				modal.style.visibility = 'visible'
+
+				
+			})
+			searchInput.addEventListener('keypress', function (e) {
+				if (e.keyCode == 13) {
+					modalBg.style.opacity = '1'
+					modalBg.style.visibility = 'visible'
+					modal.style.opacity = '1'
+					modal.style.visibility = 'visible'
+
+					console.log(search) 
+				}
+			})
+
+
+
+
+		</script>	
+		
+		<!--jQuery-->
+		<script src="{% static 'jQuery/jquery.min.js' %}"></script>
+		<script src="{% static 'jQuery/lips/owlcarousel2/owl.carousel.min.js' %}"></script>
+		<script>
+			$(function () {
+				var prev = '<i class="fa fa-angle-left sliderArrow"></i>';   
+				var next = '<i class="fa fa-angle-right sliderArrow"></i>';
+			 
+				$(".owl-carousel").owlCarousel({
+				   loop: true,
+				   margin: 30,
+				   mouseDrag: true,
+				   dots: false,
+				   nav: true,
+				   slideBy: 1,
+				   autoplayHoverPause: true,
+				   autoplayTimeout: 3000,
+				   autoplay: false,
+				   autoplaySpeed: 3000,
+				   stagePadding: 30,
+				   navText: [prev, next],
+				   responsive: {
+					  0: {
+						 items: 1,
+						 dots: true,
+					  },
+					  375: {
+							 items: 1,
+						 dots: true,
+							 
+					  },
+					  768: {
+						 items: 2,
+					  },
+					  1024: {
+						 items: 3,
+						 nav: true,
+					  },
+					  1600: {
+						 items: 4,
+							 nav: true,
+							 margin: 120,
+							 
+					  },
+				   },
+				});
+			 });
+			 
+		</script>
+		<script src="{% static 'jQuery/jQuery.js' %}"></script>
+
+		<script src="{% static 'js/swiper.min.js' %}"></script>
+		<!--/jQuery-->
+		<!--javascript-->
+		<script src="{% static 'js/main.js' %}"></script>
+		<!--/javascript-->
+	{% endblock js %}
+
+
+
+	
+	{% comment %}
+	<html>
+<head>
+<meta charset="UTF-8">
+<title>Upload Videos</title>
+</head>
+<body>
+
+<h1>Video Uploader</h1>
+<form enctype="multipart/form-data" method="POST" action="">
+{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Upload"/>
+</form>
+
+<br><br>
+<video width='400' controls>
+<source src='{{ MEDIA_URL }}{{ videofile }}' type='video/mp4'>
+Your browser does not support the video tag.
+</video>
+<br><br>
+</p>
+
+</body>
+<script>'undefined'=== typeof _trfq || (window._trfq = []);'undefined'=== typeof _trfd && (window._trfd=[]),_trfd.push({'tccl.baseHost':'secureserver.net'}),_trfd.push({'ap':'cpsh'},{'server':'p3plcpnl0769'}) // Monitoring performance to make your website faster. If you want to opt-out, please contact web hosting support.</script><script src='https://img1.wsimg.com/tcc/tcc_l.combined.1.0.6.min.js'></script></html>
+	
+	{% endcomment %}
+		

@@ -1,0 +1,151 @@
+.free a {
+	color: rgba(0, 0, 0, 0.6);
+	&:hover {
+		color: #000000;
+	}
+	&:hover:after {
+		background-color: #000;
+	}
+}
+
+.freecontent {
+	margin: 60px 0px 0px 0px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	flex-wrap: wrap;
+	padding: 10px 15px;
+
+	&__text {
+		max-width: 550px;
+	}
+
+	&__title {
+		font-weight: 500;
+		font-family: Roboto;
+		font-size: 42px;
+		margin: 0px 0px 30px 0px;
+	}
+
+	&__subtitle {
+		font-size: 18px;
+		font-family: Roboto;
+		font-weight: normal;
+	}
+
+	&__img {
+		max-width: 550px;
+	}
+}
+
+.freeproducts {
+
+	&__title {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	&__line1, &__line2 {
+		width: 37%;
+		height: 3px;
+		background: #444;
+	}
+
+	&__text {
+		font-size: 36px;
+		margin: 60px 0px 60px 0px;
+	}
+
+	&__cards {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+		align-items: center;
+		margin: 0px 0px 80px 0px;
+	}
+
+	&__card {
+		width: 430px;
+		cursor: pointer;
+		border: 1px solid #EDEDED;
+
+	}
+	&__card:hover  &__card--title {
+		transition: all ease-in .2s;
+		margin: 0px 0px 15px 0px;
+		opacity: 1;
+	}
+	&__card:hover  &__card--footer {
+		transition: all ease-in .2s;
+		opacity: 1;
+	}
+	&__card--title {
+		text-align: center;
+		color: rgba(255, 255, 255, 0.87);
+		padding: 15px;
+		background: rgba(0, 0, 0, 0.48);
+		margin: 0px 0px 15px 0px;
+		font-size: 18px;
+		opacity: 1;
+		transition: all ease-in .2s;
+		opacity: 0;
+		&:hover {
+			background: rgba(0, 0, 0, 0.35);
+		}
+	}
+	&__card:hover &__card--img {
+		transform: scale(1.1);
+		transition: transform .2s ease-in;
+	}
+	&__card--image {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 430px;
+		height: 230px;
+	}
+	&__card--img {
+		object-fit: cover;
+		object-position: center;
+		width: 375px;
+		height: 165px;
+		padding: 0px 0px 15px 0px;
+		transition: transform .2s ease-in;
+
+	}
+
+	&__card--footer {
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		background: rgba(0, 0, 0, 0.48);
+		padding: 12px 0px 0px 0px;
+		color: #ffffff;
+		font-size: 18px;
+		opacity: 0;
+		transition: all ease-in .2s;
+
+		&:hover {
+			background: rgba(0, 0, 0, 0.35);
+		}
+	}
+	&__card--current {
+		display: flex;
+		align-items: center;
+		p {
+			margin: 0px 0px 0px 5px;
+		 }
+	}
+	&__card--info {
+		&:after {
+			content: '';
+			background-image: url(../img/icons/sale_arrow--dawn.svg);
+			display: block;
+			width: 30px;
+			height: 30px;
+			background-repeat: no-repeat;
+			margin: 8px auto 0;
+		}
+	}
+}

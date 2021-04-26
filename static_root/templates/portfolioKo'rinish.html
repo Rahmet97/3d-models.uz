@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load thumbnail %}
+	{% block css %} 
+	<!-- icons-link -->
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- style-link -->
+    <link rel="stylesheet" href="{% static 'fancbox/jquery.fancybox.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style2.css' %}">
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+	{% endblock css%}
+
+	{% block title %}<title>Portfolio</title>{% endblock title %}
+
+
+{% block bodycontent %}
+
+		<section class="content">
+
+			<section class="content">
+
+				<!-- Navbar -->
+				{% include 'includes/navbar.html' %}
+				<!-- end Navbar -->
+
+			</section>
+
+		</section>
+		
+		<section class="section__wrappers">
+				<div class="container fancbox">
+					<div class="fancbox__top">
+						<a href="javascript:;" data-fancybox-trigger="gallery"  data-caption="Rasm 1">
+							<img class="fancboxss" src ="{{ object.imageURL }}" alt = "rasm" />
+						</a>
+					</div>
+					<div class="fancbox__right">
+						<!-- <a href="https://picsum.photos/id/10/1500" data-fancybox="gallery" data-caption="Rasm 1">
+							<img  class="fancboxs" src="https://picsum.photos/id/10/100" alt = "rasm" />
+						</a>
+						<a href="https://picsum.photos/id/20/1500" data-fancybox="gallery" data-caption="Rasm 1">
+							<img  class="fancboxs" src="https://picsum.photos/id/20/100" alt = "rasm" />
+						</a>
+						<a href="https://picsum.photos/id/30/1500" data-fancybox="gallery" data-caption="Rasm 1">
+							<img  class="fancboxs" src="https://picsum.photos/id/30/100" alt = "rasm" />
+						</a>
+						<a href="https://picsum.photos/id/40/1500" data-fancybox="gallery" data-caption="Rasm 1">
+							<img  class="fancboxs" src="https://picsum.photos/id/40/100" alt = "rasm" />
+						</a>
+						<a href="https://picsum.photos/id/50/1500" data-fancybox="gallery" data-caption="Rasm 1">
+							<img  class="fancboxs" src="https://picsum.photos/id/50/100" alt = "rasm" />
+						</a> -->
+						{% for img in object.portfolio_images.all %}
+						{% if forloop.counter == 1 %}
+							{% thumbnail object.image "1500" as bigimg %}
+								{% thumbnail object.image "100x100" crop="center" as smallimg %}
+									<a href="{{bigimg.url}}" data-fancybox="gallery" data-caption="{{ object.caption|default_if_none:'Active Image' }}">
+										<img class="fancboxs" src="{{smallimg.url}}" alt = "rasm">
+									</a>
+								{% endthumbnail %}
+							{% endthumbnail %}
+						{% endif %}
+						{% thumbnail img.image "1500" as big %}
+							{% thumbnail img.image "100x100" crop="center" as small %}
+								<a href="{{big.url}}" data-fancybox="gallery" data-caption="{{ img.caption|default_if_none:'Image' }}">
+									<img class="fancboxs" src="{{small.url}}" alt = "rasm">
+								</a>
+							{% endthumbnail %}
+						{% endthumbnail %}
+					{% empty %}
+					{% endfor %}
+					</div>
+
+				</div>
+	
+			
+			<div class="slide">
+				<div class="slide__about">
+					<h2 class="slide__title">{{ object.name }}</h2>
+					<h4 class="slide__texts">{{ object.short_info }}</h4>
+					<p class="slide__text__last">{{ object.description|safe }}</p>
+	
+				</div>
+			</div>
+		</section>
+
+	{% endblock bodycontent %}
+
+	{% block js %} 
+		<!--jQuery-->
+		<script src="{% static 'jQuery/jquery.min.js' %}"></script>
+		<script src="{% static 'fancbox/jquery.fancybox.min.js' %}"></script>
+
+
+		<!--/jQuery-->
+		<!-- <script src="js/main.js"></script> -->
+		<!--/javascript-->
+
+		<!--    bundle js swiper-->
+		<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+		<script src="{% static 'js/bundle.js' %}"></script>
+		<script src="{% static 'js/main.js' %}"></script>
+
+	{% endblock js%}

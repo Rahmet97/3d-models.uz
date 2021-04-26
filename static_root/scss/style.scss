@@ -1,0 +1,30 @@
+@import "zero";
+@import "main";
+@import "header";
+@import "footer";
+@import "content";
+@import "media";
+
+@import "aloqa";
+@import "mahsulot";
+@import "register";
+@import "tolovforma";
+
+@import "sale";
+@import "free";
+@import "portfolio";
+@import "shopingCard";
+
+
+
+// fonts Roboto 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,500;0,700;1,400&display=swap');
+
+body {
+	font-family: 'Roboto', sans-serif;
+}
+.wrapper {
+	max-width: 1920px;
+	margin: 0 auto;
+	overflow: hidden;
+}

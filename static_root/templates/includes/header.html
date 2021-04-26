@@ -1,0 +1,41 @@
+{% load static %}
+<header class="header">
+    <div class="header__body">
+        <a href="{% url 'Core:main-view'  %}" class="header__logo"><img src="{% static 'img/logoii.png' %}" alt="logo"></a>
+        <div class="header__messengers">
+            <a class="header__email"ef="email:abbos@gmail.com"><img src="{% static 'img/icon\'s/email.svg' %}" alt="email icon"> abbos@gmail.com</a>
+            <a href="#"><img src="{% static 'img/icon\'s/instagram.svg' %}" alt="instagram icon"></a>
+            <a href="#"><img src="{% static 'img/icon\'s/youtube.svg' %}" alt="youtube icon"></a>
+            <a href="#"><img src="{% static 'img/icon\'s/telegram.svg' %}" alt="telegram icon"></a>
+            <a href="#"><img src="{% static 'img/icon\'s/facebook.svg' %}" alt="facebook icon"></a>
+        </div>
+        <div class="header__signin">
+            <img src="{% static 'img/icon\'s/bar-chart.svg' %}" alt="bar-chart icon">
+            <p class="header__paragraph" id="Download_counted"></p>
+            {% if request.user.is_authenticated %}
+                <p class="header__registration">Hi {{ request.user.first_name }}</p>
+                <a href="{% url 'logout' %}?next={{request.path}}" class="header__registration">logout</a>          
+            {% else %}
+                <a href="{% url 'User:register' %}" class="header__registration">Ro'yhatdan o'tish</a>
+                <a href="{% url 'login' %}?next={{request.path}}" class="header__registration">Login</a>
+            {% endif %}
+            <a href="#" class="header__order">Buyurtma berish</a>
+            <a href="{% url 'Core:card-view' %}"  class="header__shopcard">
+                <img src="{% static 'img/icon\'s/Group.svg' %}" alt="shoping card">
+            </a>
+        </div>
+        <div class="header__language">	
+            <select name="dropDown">
+                <option value="uz">O'zbek (uz)</a></option>
+                <option value="ru">Russia (ru)</option>
+                <option value="eng">English (eng)</option>
+            </select>
+        </div>
+        <!-- burger -->
+        <div class="navbar__burger h">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</header>

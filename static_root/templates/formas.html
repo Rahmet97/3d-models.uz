@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- icons-link -->
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+		integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+
+	<!-- style-link -->
+	<link rel="stylesheet" href="css/style2.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/main.css">
+	<title>Biz haqimizda</title>
+</head>
+
+<body >
+	<div class="wrapper">
+		<header class="header">
+			<div class="header__body">
+				<a href="index.html" class="header__logo"><img src="./img/logoii.png" alt="logo"></a>
+				<div class="header__messengers">
+					<a class="header__email"ef="email:abbos@gmail.com"><img src="./img/icon's/email.svg" alt="email icon"> abbos@gmail.com</a>
+					<a href="#"><img src="./img/icon's/instagram.svg" alt="instagram icon"></a>
+					<a href="#"><img src="./img/icon's/youtube.svg" alt="youtube icon"></a>
+					<a href="#"><img src="./img/icon's/telegram.svg" alt="telegram icon"></a>
+					<a href="#"><img src="./img/icon's/facebook.svg" alt="facebook icon"></a>
+				</div>
+				<div class="header__signin">
+					<img src="./img/icon's/bar-chart.svg" alt="bar-chart icon">
+					<p class="header__paragraph">1123</p>
+					<a href="register.html" class="header__registration">Ro'yhatdan o'tish</a>
+					<a href="#" class="header__order">Buyurtma berish</a>
+					<a href="shopingCard.html"  class="header__shopcard">
+						<img src="./img/icon's/Group.svg" alt="shoping card">
+					</a>
+				</div>
+				<div class="header__language">	
+					<select name="dropDown">
+						<option value="uz">O'zbek (uz)</a></option>
+						<option value="ru">Russia (ru)</option>
+						<option value="eng">English (eng)</option>
+					</select>
+				</div>
+				<!-- burger -->
+				<div class="navbar__burger h">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+			</div>
+		</header>
+
+		<section class="content">
+			<!--        <div class="content__img">-->
+			<!--            <img src="./img/content-img.jpg" alt="content-img">-->
+			<!--        </div>-->
+
+			<!-- <div class="content__navbar">
+				<ul class="content__navbar--list">
+					<li><a href="index.html">Asosiy</a></li>
+					<li><a href="sale.html">Aksiya</a></li>
+					<li><a href="free.html">Bepul mahsulotlar</a></li>
+					<li><a href="portfolio.html">Portfolio</a></li>
+					<li><a href="Videos.html">Videolar</a></li>
+					<li><a href="about.html">Biz haqimizda</a></li>
+					<li><a href="Aloqa.html">Aloqa</a></li>
+				</ul>
+			</div> -->
+
+			<!-- Navbar -->
+			{% include 'includes/navbar.html' %}
+			<!-- end Navbar -->
+
+        </section>
+        <section class="payment">
+			<form action="#" method="get">
+				<p class="payment__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+					Ultrices volutpat mollis vel diam
+					<span class="payment__desc">proin at diam.
+						Lorem volutpat malesuada lobortis eget enim amet est id auctor.</span>
+				</p>
+				<p class="payment__item">
+					<label class="payment__title" for="card">Karta raqam</label>
+					<input class="payment__input" id="card" name="card" onkeyup="space()" type="text" maxlength="19"
+						placeholder="**** **** **** ****">
+					<img class="payment__uzcard__img" src="img/icons/uzcard.png" alt="uzcard">
+					<img class="payment__uzcard__imgxumo" src="img/icons/xumo.png" alt="xumo">
+				</p>
+
+				<p class="payment__item">
+					<label class="payment__title" for="data">Muddati</label>
+					<input class="payment__input" maxlength="5" id="data" name="data" type="text" placeholder="00/00">
+				</p>
+				<p class="payment__item">
+					<label class="payment__title" for="email">Elektron pochta</label>
+					<input class="payment__input" id="email" name="email" type="email" placeholder="email" required>
+				</p>
+				<p class="payment__item">
+					<button class="payment__submit" type="submit" id="submit">OK</button>
+				</p>
+			</form>
+		</section>
+
+
+		<footer class="footer">
+			<div class="footer__body">
+				<div class="footer__info footer__info--end">
+					<div class="footer__info--title footer__about--the">Biz haqimizda</div>
+					<div class="footer__about">	
+						<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repudiandae, molestiae est placeat asperiores laudantium nobis numquam ipsa eius optio saepe totam sed sequi voluptatum quos architecto nostrum quaerat maiores consequuntur? Maiores quo consectetur soluta vero, nobis magnam est dolor illum quidem dolore ratione illo aperiam veniam provident ipsa officiis! Laborum!</p>
+					</div>
+				</div>
+				<div class="footer__info">
+					<a href="index.html" class="footer__info--logo"><img src="./img/logoii.png" alt="footer logo"></a>
+					<div class="footer__info--title">Aloqa Ma'lumotlari</div>
+					<a href="tel:+99899 403-68-28" class="footer__info--subtitle">+99899 403-68-28</a>
+					<a href="tel:+99899 403-68-28" class="footer__info--subtitle">+99833 888-02-03</a>
+					<div class="footer__info--subtitle">khamidullaev@gmail.com</div>
+					<div class="footer__info--messangers footer__iconss">
+						<a href="#" class="footer__icon--item"><i class="fa fa-instagram"></i></a>
+						<a href="#" class="footer__icon--item"><i class="fa fa-youtube"></i></a>
+						<a href="#" class="footer__icon--item"><i class="fa fa-telegram"></i></a>
+						<a href="#" class="footer__icon--item"><i class="fa fa-facebook"></i></a>
+					</div>
+				</div>
+				<div class="footer__map">
+					<div class="mapouter">
+						<div class="gmap_canvas"><iframe width="700" height="360" id="gmap_canvas"
+								src="https://maps.google.com/maps?q=uzbekistan%2C%20toshkent%2C%20mirzo%20ulugbek&t=&z=13&ie=UTF8&iwloc=&output=embed"
+								frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a
+								href="https://2piratebay.org">free movies</a></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="footer__creators">
+				<p>Barcha huquqlar himoyalangan<span>©️</span> 2020 3D-models</p>
+				<p>Sayt yaratuvchi - <a href="#" class="footer__company">Instant Company</a></p>
+			</div>
+		</footer>
+
+	</div>
+	<!--jQuery-->
+	<script src="jQuery/jquery.min.js"></script>
+	<script src="./jQuery/lips/owlcarousel2/owl.carousel.min.js"></script>
+	<script src="jQuery/jQuery.js"></script>
+
+
+	<!--/jQuery-->
+	<!-- <script src="js/bundle.js"></script> -->
+	<!--/javascript-->
+
+	<!--    bundle js swiper-->
+	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+	<script src="js/bundle.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,157 @@
+.contact {
+	padding: 5.5em 9em;
+	max-width: 1200px;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+
+	&__head {
+		width: 45%;
+	}
+
+	&__item {
+		margin: 0 0 1.5em 0;
+		position: relative;
+	}
+
+	&__input {
+		display: block;
+		box-sizing: border-box;
+		width: 100%;
+		outline: none;
+		margin: 0;
+	}
+
+	&__input[type="text"], [type="number"] {
+		background: #fff;
+		border: 1px solid grey;
+		//box-shadow: 0 0 5px rgba(111, 111, 118, 0.85);
+		font-size: 22px;
+		color: #000;
+		font-weight: bold;
+		padding: .8em 2em;
+	}
+
+	&__input {
+		background: white;
+		border: 1px solid grey;
+		font-size: 22px;
+		color: #000;
+		font-weight: bold;
+		padding: .8em 2em;
+	}
+
+	textarea {
+		resize: none;
+	}
+
+	textarea::placeholder {
+		font-size: 22px;
+		font-family: "Reboto", sans-serif;
+	}
+
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+
+	&__input[type="text"]:focus, [type="number"]:focus {
+		background: #fff;
+	}
+
+	&__submit {
+		margin-top: 30px;
+	}
+
+	&__submit[type="submit"] {
+		background: #0688FF;
+		box-shadow: 0 3px 0 0 darken(#0688FF, 10%);
+		border: none;
+		color: #fff;
+		cursor: pointer;
+		display: block;
+		font-size: 22px;
+		line-height: 1.6em;
+		outline: none;
+		width: 240px;
+		height: 62px;
+		border-radius: 60px;
+		text-shadow: 0 1px #0688FF;
+		font-weight: bold;
+		transition: all 0.3s;
+
+		&[type="submit"]:hover {
+			background: rgba(3, 139, 253, 0.84);
+			box-shadow: 0 1px 3px darken(#0688FF, 30%);
+			transition: all 0.3s;
+		}
+	}
+
+	&__title {
+		font-size: 24px;
+		color: #000;
+		font-weight: bold;
+		line-height: 115.9%;
+		padding-bottom: 40px;
+
+	}
+
+	&__desc {
+		color: #0688FF;
+	}
+
+
+	&__section {
+		max-width: 50%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-top: 70px;
+	}
+
+	&__menu {
+		border: 1px solid grey;
+		padding: 2.5em 3em;
+		margin-top: 50px;
+		transition: all 0.3s;
+
+		&:hover {
+			box-shadow: 0 0 10px rgba(111, 111, 118, 0.85);
+			transition: all 0.3s;
+		}
+	}
+
+	&__items {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+
+	&__images {
+		width: 25px;
+		height: auto;
+		margin-right: 15px;
+	}
+
+	&__group {
+		font-size: 18px;
+		line-height: 100.9%;
+		font-weight: normal;
+	}
+
+	&__text {
+		font-size: 23px;
+		font-weight: bold;
+		line-height: 100.9%;
+		margin-bottom: 20px;
+		color: #000;
+	}
+
+	&__span {
+		color: #0688FF;
+		font-weight: bold;
+		line-height: 35px;
+	}
+}

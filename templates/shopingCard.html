@@ -1,0 +1,362 @@
+	{% extends "base.html" %}
+	{% load i18n %}
+	{% load static %}
+	
+		{% block css %} 
+	
+			<!-- icons-link -->
+			<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+			integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+			<link rel="stylesheet" href="{% static 'jQuery/lips/owlcarousel2/assets/owl.carousel.min.css' %}">
+			<link rel="stylesheet" href="{% static 'jQuery/lips/owlcarousel2/assets/owl.theme.default.min.css' %}">
+			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
+	
+			<link rel="stylesheet" href="{% static 'css/swiper.min.css' %}">
+			<!-- style-link -->
+			<link rel="stylesheet" href="{% static 'css/style.css' %}">
+			<link rel="stylesheet" href="{% static 'css/main.css' %}">
+	
+		{% endblock css %}
+	
+		{% block title %} <title>{% trans "Shopping" %}</title> {% endblock title %}
+	
+		{% block bodycontent %}
+	
+		{% get_current_language as LANGUAGE_CODE %}
+			<input type='hidden' id='language_type' value="{{ LANGUAGE_CODE }}">
+	
+			<style>
+				@media (max-width: 414px) {
+					.shopproduct__info {
+					max-width: 130px !important;
+					}
+				}
+				
+			</style>
+	
+			<section class="content">
+				
+				<!-- Navbar -->
+				{% include 'includes/navbar-free.html' %}
+				<!-- end Navbar -->
+				
+			</section>
+			<style>	
+				.shopingcard__item {
+					margin: 0px 0px 60px -7px;
+					box-shadow: none;
+					border: 1px solid #0080f7;
+	
+				}
+			</style>
+			<section class="shopingcard wrap">
+				<div class="shopingcard__body">
+					<div class="shopingcard__itemcheck">
+						
+						<div class="pretty p-icon p-round p-pulse">
+							<input type="checkbox" class="input__shopping-checkbox" onclick="model_checkbox(this)" data-pk="all" id="all_checkbox"/>
+							<div class="state p-success">
+								<i class="icon mdi mdi-check"></i>
+								<label>{% trans "Hammasini Tanlash" %}</label>
+							</div>
+						</div>
+					</div>
+					<div class="shopingcard__item">
+						<div class="shopingcard__item--title">{% trans "To’lov Summasi :" %}</div>
+						<!-- <div class="shopingcard__item--summ"><span class="shopping__price-new">{{ s }}</span>{% if s != 0 %}.00 {% endif %} so'm </div> -->
+						<div class="shopingcard__item--summ"><span class="shopping__price-new" id="model_total_price">{{ total_price }}</span> {% trans "so'm" %} </div>
+						
+						<center>
+							<a href="{% url 'Core:payment-view' %}" class="shopingcard__item--btn" style="margin: 0;">{% trans "Sotib olish" %}</a>
+						</center>
+
+					</div>
+					
+				</div>
+				
+			</section>
+			<style>
+				@media (max-width: 414px) {
+					#shopCards {
+						text-align: left !important;
+					}
+				}
+			</style>
+			<div class="shopproduct wrap">
+				<div class="shopproduct__body">
+					<div class="shopproduct__cards" id="shopCards">
+						
+						{% for item in items %}
+							<div class="shopproduct__card">
+								<div class="pretty p-default p-round all">
+									<input type="checkbox" id='single_price{{ item.pk }}'  value="{% if item.model.discount %}{{ item.model.discount }}{% else %}{{ item.model.price }}{% endif %}" class="card_items" onclick="model_checkbox(this)" data-pk="{{ item.pk }}" data-lang="{{ LANGUAGE_CODE }}" />
+									<!-- <input type="hidden" > -->
+									<div class="state p-success-o">
+										<label>
+										</label>
+									</div>
+								</div>
+								<div class="shopproduct__card--image">
+									<img src="{{ item.model.imageURL }}" alt="product img" class="shopproduct__card--img" width="300" height="150">
+								</div>
+								<div class="shopproduct__info" style="min-width: 150px;">
+									<div class="shopproduct__info--title" style="margin-right: 30px;">{{ item.model.name }} <br>
+										{% if item.model.discount %} <br>
+											<b data="130" >{{ item.model.discount }}</b> <span> {% trans "so'm" %}</span> ({% trans 'aksiya' %})
+										{% elif item.model.price %}
+										<b data="120" style="margin: 15px 0;">{{ item.model.price }}</b> <span> {% trans "so'm" %}</span>	
+										{% endif %}
+									</div>
+									<div class="shopproduct__info--text">
+										<span>
+											{{ item.model.short_info }}
+										</span>
+									</div>
+								</div>
+								<div class="shopproduct__info">
+									<div class="shopproduct__info--text">
+										<a href="#" onclick="add_to_cart_view(this)" data-pk="{{  item.model.pk }}" data-action="clear" data-pageid="cart-page" >
+											<span>
+												<i class="fa fa-close pr-1 text-danger"></i>
+											</span>
+	
+											<span>
+												{% trans "O'chirish" %}
+											</span>
+										</a>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+						
+					</div>
+				</div>
+			</div>
+	
+		{% endblock bodycontent %}    
+	
+		{% block js %} 
+			<!--jQuery-->
+			<script src="{% static 'jQuery/jquery.min.js' %}"></script>
+			<script src="{% static 'jQuery/lips/owlcarousel2/owl.carousel.min.js' %}"></script>
+			<script src="{% static 'jQuery/jQuery.js' %}"></script>
+	
+			<script src="{% static 'js/swiper.min.js' %}"></script>
+			<!--/jQuery-->
+			<!--javascript-->
+			<script src="{% static 'js/main.js' %}"></script>
+			<script>
+	console.log("hello world")
+	
+	
+	function add_to_cart_view($this){
+		var pk = $this.dataset.pk
+		var pageid = $this.dataset.pageid
+		var action = $this.dataset.action
+		var lang = document.getElementById('language_type').value;
+	
+		console.log('productPk: ', pk, 'Action:', action)
+		console.log('USER: ', user)
+		
+		console.log('page: ', pageid)
+	
+		if (user == 'AnonymousUser'){
+			LoginSignUpFunction(pk)
+			console.log("User is not logged in")
+		}else{
+			console.log("User is logged in")
+			updateUserOrder(pk, action, pageid, lang)
+		}	
+	}
+	
+	
+	function updateUserOrder(pk, action, pageid, lang){
+		console.log('User is authenticated, sending data...')
+	
+		var url = '/'+lang.toString()+'/ajax/cart/detail/'
+	
+		fetch(url, {
+			method:'POST',
+			headers:{
+				'Content-Type':'application/json',
+				'Accept': 'application/json',
+				'X-CSRFToken':csrftoken,
+			}, 
+			body:JSON.stringify({'pk':pk, 'action':action, 'pageid':pageid})
+		})
+		.then((response) => {
+		   return response.json();
+		})
+		.then((data) => {
+			var notif_tag = document.getElementById('AlreadyAdded'+pk.toString());
+		
+			if(pageid == "cart-page"){
+				location.reload()
+			}
+			// location.reload()
+			console.log("action: ", data["done_action"])
+			if (notif_tag != null){
+				if (data["added"] == true && pageid == "product-page"){
+					notif_tag.innerHTML = 'Added To Cart';
+					notif_tag.classList.toggle("show");
+				}
+				if (data["already_added"] == true && pageid == "product-page"){
+					notif_tag.innerHTML = 'Already Added';
+					notif_tag.classList.toggle("show");
+				}
+			}
+		});
+	}
+	
+	// When the user clicks on div, open the popup
+	function LoginSignUpFunction(pk) {
+		console.log("This method works fine")
+		var popup = document.getElementById("PopupNotification"+pk.toString());
+		popup.classList.toggle("show");
+	  }
+	
+	
+	function product_price($this){
+		var price = $this.dataset.price;
+		var price_info = $this.dataset.priceinfo;
+		var display_price = document.getElementById("ProductPrice");
+		var display_price_info = document.getElementById("ProductPriceInfo");
+		display_price.innerHTML = price;
+		display_price_info.innerHTML = price_info;
+	
+		console.log(price, price_info);
+	}
+	
+	
+	// control checkbox in cart page
+	function model_checkbox($this){
+		var pk = $this.dataset.pk;
+		var lang = document.getElementById('language_type').value;
+	
+		var checkbox;
+		var action = 'None';
+		if (pk == 'all'){
+			checkbox = document.getElementById('all_checkbox');
+			if (checkbox.checked){
+				action = 'checked';
+			}else{
+				action = 'unchecked';
+			}
+		}else{
+			id = document.getElementById('model_checkbox'+toString(pk));
+		}
+		console.log(action);
+	
+		console.log(pk)
+		total_price(pk, action, lang)
+		
+	}
+	
+	// change total price in the cart page when checkbox sellected
+	function total_price(pk, action, lang){
+		$.ajax({
+			type: 'GET',
+			url: '/' + lang.toString() + '/ajax/model/checkbox/',
+			data : { 
+				'pk':pk, 'action':action
+			},
+			success: function(response) {
+				var instance = JSON.parse(response["instance"]);
+				console.log("Sellected: ", instance.length);
+				console.log("Sellected: ", instance);
+				var total_price = 0.0;
+				var mpk;
+				var single_price;
+				var m_checkbox;
+				var all_checkbox = 0;
+	
+				if (instance.length > 0){
+					document.getElementById("all_checkbox").type = "checkbox";
+					for (var i = 0; i < instance.length; i++){
+						console.log("pk: ",           instance[i]['pk']);
+						console.log("cart_field: ",   instance[i]['fields']['cart_field']);
+						mpk = instance[i]['pk']
+						single_price = document.getElementById('single_price'+mpk).value;
+						m_checkbox   = document.getElementById('single_price'+mpk) 
+						if (instance[i]['fields']['cart_field']){
+							console.log("Single price", single_price)
+							total_price += parseFloat(single_price);
+							all_checkbox ++;
+							m_checkbox.checked = true;
+						}else{
+							m_checkbox.checked = false;
+						}
+					}
+					console.log("Total price", total_price)
+					model_total_price = document.getElementById("model_total_price")
+					model_total_price.innerHTML = (total_price)
+					if (all_checkbox ==  instance.length){
+						document.getElementById("all_checkbox").checked = true;
+					}else{
+						document.getElementById("all_checkbox").checked = false;
+					}
+				}else{
+					document.getElementById("all_checkbox").type = "hidden";
+				}
+			},
+			error: function() { 
+				console.log('Houston, we have a problem!');
+			}
+		});
+	}
+	
+	// change checkbox in the cart page when page uploaded
+	function selected_models_info(){
+		var pk = ''
+		var action = ''
+		var lang = document.getElementById('language_type').value;
+		console.log(lang)
+		$.ajax({
+			type: 'GET',
+			url: '/' + lang.toString() + '/ajax/model/checkbox/',
+			data : { 
+				'pk':pk, 'action':action
+			},
+			success: function(response) {
+				var instance = JSON.parse(response["instance"]);
+				console.log("Sellected: ", instance.length);
+				console.log("Sellected: ", instance);
+				var all_checkbox = 0;
+				if (instance.length > 0){
+					document.getElementById("all_checkbox").type = "checkbox";
+					for (var i = 0; i < instance.length; i++){
+						mpk = instance[i]['pk'];
+						var m_checkbox = document.getElementById('single_price'+mpk);
+	
+						if (instance[i]['fields']['cart_field']){
+							m_checkbox.checked=true;
+							all_checkbox ++;
+						}else{
+							m_checkbox.checked=false;
+						}
+					}
+					if (all_checkbox ==  instance.length){
+						document.getElementById("all_checkbox").checked = true;
+					}else{
+						document.getElementById("all_checkbox").checked = false;
+					}
+				}else{
+					document.getElementById("all_checkbox").type = "hidden";
+				}
+				console.log("al", all_checkbox)
+			},
+			error: function() { 
+				console.log('Houston, we have a problem!');
+			}
+		});
+	}
+	
+			</script>
+	
+			<script type="text/javascript">
+				window.onload = function() {
+					selected_models_info();
+				  };
+			</script>
+																			
+		{% endblock js %}

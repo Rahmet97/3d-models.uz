@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load thumbnail %}
+	
+	
+	{% block css %} 
+	<!-- icons-link -->
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- style-link -->
+    <link rel="stylesheet" href="{% static 'fancbox/jquery.fancybox.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style2.css' %}">
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+	{% endblock css %}
+
+	{% block title %}<title>Mahsulot</title>{% endblock title %}
+
+	{% block bodycontent %}
+
+		<section class="content">
+
+			<section class="content">
+
+				<!-- Navbar -->
+				{% include 'includes/navbar.html' %}
+				<!-- end Navbar -->
+
+			</section>
+
+		</section>
+		
+		<section class="section__wrappers">
+
+			<!-- Images Container -->
+			<div class="container fancbox">
+				<div class="fancbox__top">
+					<a href="javascript:;" data-fancybox-trigger="gallery"  data-caption="{{ img.caption|default_if_none:'Active Image' }}">
+						<img class="fancboxss" src ="{{ object.image.url }}" alt = "rasm" />
+					</a>
+				</div>
+
+				<div class="fancbox__right">
+					{% for img in image_list %}
+						{% if forloop.counter == 1 %}
+							{% thumbnail object.image "1500" as bigimg %}
+								{% thumbnail object.image "100x100" crop="center" as smallimg %}
+									<a href="{{bigimg.url}}" data-fancybox="gallery" data-caption="{{ object.caption|default_if_none:'Active Image' }}">
+										<img class="fancboxs" src="{{smallimg.url}}" alt = "rasm">
+									</a>
+								{% endthumbnail %}
+							{% endthumbnail %}
+						{% endif %}
+						{% thumbnail img.images "1500" as big %}
+							{% thumbnail img.images "100x100" crop="center" as small %}
+								<a href="{{big.url}}" data-fancybox="gallery" data-caption="{{ img.caption|default_if_none:'Image' }}">
+									<img class="fancboxs" src="{{small.url}}" alt = "rasm">
+								</a>
+							{% endthumbnail %}
+						{% endthumbnail %}
+					{% empty %}
+					{% endfor %}
+				</div>
+			</div>
+			<!-- End Images Container -->
+	
+			<div class="slide">
+
+				<!-- Object Info -->
+				<div class="slide__about">
+					<h2 class="slide__title">{{ object.name }}
+						<span class="slide__star slide__letter">
+							BEPUL
+						</span>
+					</h2>
+					<h4 class="slide__texts">{{ short_info }}</h4>
+					<p class="slide__text__last">{{ object.description|safe }}</p>
+				</div>
+				<!-- End Object Info -->
+
+				<div class="slide__btn">
+					<a href="{{ object.model_3d.url }}" >
+						{% csrf_token %}
+						<button class="slide__buy"  onclick="request_access(this)" id="{{ object.slug }}">Yuklab olish</button>
+					</a>
+					
+					{% comment %}
+					<a href="#!">
+						<button type="submit" class="slide__bug">Savatchaga olish <img src="img/icons/shop.png"
+								class="slide__shop__icon" alt="">
+						</button>
+					</a>
+					{% endcomment %}
+				</div>
+			</div>
+		</section>
+
+		<!-- Script that calls download_counter method -->
+		<script>
+			function request_access($this){
+				console.log("button clicked");
+				var request_data = $this.id;
+				console.log("data: " + request_data);
+				$.ajax({
+					type: 'GET',
+					url: "{% url 'FreeModel:download_counter' %}",
+					data : { 
+						request_data: request_data,
+					},
+					success : function(json) {
+						$("#request-access").hide();
+						console.log("requested access complete");
+					}
+				});
+			}
+		</script>
+		<!-- End Script -->
+
+	{% endblock bodycontent %}
+
+	{% block js %} 
+		
+		<!--jQuery-->
+		<script src="{% static 'jQuery/jquery.min.js' %}"></script>
+		<script src="{% static 'fancbox/jquery.fancybox.min.js' %}"></script>
+
+		<!--    bundle js swiper-->
+		<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+		<script src="{% static 'js/bundle.js' %}"></script>
+		<script src="{% static 'js/main.js' %}"></script>
+	
+	{% endblock js %} 

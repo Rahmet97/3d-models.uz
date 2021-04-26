@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+
+	
+	{% block css %} 
+		<!-- icons-link -->
+		<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+		<!-- style-link -->
+		<link rel="stylesheet" href="{% static 'css/style2.css' %}">
+		<link rel="stylesheet" href="{% static 'css/style.css' %}">
+		<link rel="stylesheet" href="{% static 'css/main.css' %}">  
+	{% endblock css %}
+
+	{% block title %}<title>Videolar</title>{% endblock title %}
+
+
+	{% block bodycontent %}
+
+		<section class="content">
+		
+			<!-- Navbar -->
+			{% include 'includes/navbar.html' %}
+			<!-- end Navbar -->
+
+		</section>
+
+		<section class="video">
+			<div class="video__apart">
+				<h2 class="video__title">Videolar</h2>
+				<div class="video__cards">
+					
+					{% for object in object_list %}
+						<div class="video__card">
+							<iframe id="player" type="text/html" width="100%" height="330px" src="http://www.youtube.com/embed/{{ object.extract_video_id }}?enablejsapi=1&origin=http://example.com"
+								frameborder="0"></iframe>
+							<div class="video__card-container">
+								<h4>{{ object.title }}</h4>
+								<p>{{ object.description|safe|truncatewords:10 }}</p>
+							</div>
+						</div>
+					{% empty %}
+						<h3 style="margin-bottom: 15%; color: gray">There is no video ;)</h3>
+					{% endfor %}
+
+				</div>
+				
+				<!-- Paginator -->
+				{% if is_paginated %}
+
+					{% include "includes/paginator.html" %}
+
+				{% endif %}
+				<!-- End Paginator -->
+
+			</div>
+		</section>
+	{% endblock bodycontent %}
+
+	{% block js %} 
+
+	<!--jQuery-->
+		<script src="{% static 'jQuery/jquery.min.js' %}"></script>
+		<script src="{% static 'jQuery/lips/owlcarousel2/owl.carousel.min.js' %}"></script>
+		<script src="{% static 'jQuery/jQuery.js' %}"></script>
+
+
+		<!--/jQuery-->
+		<script src="{% static 'js/bondle.js' %}"></script>
+		<!--/javascript-->
+
+		<!--    bundle js swiper-->
+		<script src="{% static 'js/swiper.min.js' %}"></script>
+		<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+		<script src="{% static 'js/bundle.js' %}"></script>
+		<script src="{% static 'js/main.js' %}"></script>
+	
+	{% endblock js %}
+
+
+	

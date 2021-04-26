@@ -1,0 +1,40 @@
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	box-sizing: border-box;
+	text-decoration: none;
+	list-style-type: none;
+}
+:before,
+:after {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+p,h1,h2,h3,h4,h5,h6,span,em,strong {
+	margin: 0;
+	padding: 0;
+}
+button {
+	cursor: pointer;
+}
+a:focus {
+	outline: none;
+}
+
+input::-ms-clear {
+	display: none;
+}
+
+img {
+	vertical-align: top;
+}
+
+body::-webkit-scrollbar {
+	width: 12px;
+	background-color: #000;
+}
+body::-webkit-scrollbar-thumb {
+	background-color: #ddd;
+	border-radius: 25px;
+}

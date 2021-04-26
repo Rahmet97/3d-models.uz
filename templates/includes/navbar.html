@@ -1,0 +1,14 @@
+{% load i18n %}
+<div class="content__navbar">
+    <ul class="content__navbar--list">
+        <li><a href="{% url 'Core:main-view' %}">{% trans 'Asosiy' %}</a></li>
+        <li><a href="{% url 'Core:aksiya-view' %}">{% trans 'Aksiya' %}</a></li>
+        <li><a href="{% url 'Core:free-detail-view' %}">{% trans 'Bepul mahsulotlar' %}</a></li>
+        <li><a href="{% url 'Core:portfolio-view' %}">{% trans 'Portfolio' %}</a></li>
+        <li><a href="{% url 'Core:video-view' %}">{% trans 'Videolar' %}</a></li>
+        <li><a href="{% url 'Core:about-view' %}">{% trans 'Biz haqimizda' %}</a></li>
+        <li><a href="{% url 'Core:contact-view' %}">{% trans 'Aloqa' %}</a></li>
+    </ul>
+</div>
+
+

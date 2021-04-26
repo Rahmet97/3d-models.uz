@@ -1,0 +1,56 @@
+{% load static %}
+
+    {% if is_paginated %}
+        
+        <div class="blog__counter">
+            <div class="blog__counter--number">{{ page_obj.number }} / <span>{{ page_obj.paginator.num_pages }}</span></div>
+        </div>
+        <div class="blog__btns">
+            {% if page_obj.has_previous %}
+                <!-- <a href="?page=1">&laquo; 1</a> -->
+                <a href="?page={{ page_obj.previous_page_number }}" class="blog__btns--back"> 
+                    <img src="{% static 'img/icons/arrow-back.svg' %}" alt="back icon">Back
+                </a>
+            {% else %}
+            <a style="pointer-events: none;" href="" class="blog__btns--back"> 
+                <img src="{% static 'img/icons/arrow-back.svg' %}" alt="back icon">Back
+            </a>
+            {% endif %}
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="blog__btns--next">Next 
+                    <img src="{% static 'img/icons/next-icon.svg' %}" alt="next icon">
+                </a>
+                <!-- <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }} &raquo;</a> -->
+            {% else %}
+                <a style="pointer-events: none;" href="" class="blog__btns--next">Next 
+                    <img src="{% static 'img/icons/next-icon.svg' %}" alt="next icon">
+                </a>
+            {% endif %}
+        </div>
+
+    {% endif %}
+
+    {% if product_object_list %}
+    
+        <section>
+            <div class="blog__counter">
+                {% for page_index in page_indexes %}
+                    <div class="blog__counter--number"> <span> <a href="?page= {{ page_index }}" style="color:dimgray">{{ page_index }}</a> </span> </div>
+                {% endfor %} 
+            </div>
+            <div class="blog__btns">
+                {% if product_object_list.has_previous %}
+                    <a href="?page={{ product_object_list.previous_page_number }}" class="blog__btns--back"> <img src="{% static 'img/icons/arrow-back.svg' %}" alt="back icon">Back</a>
+                {% else %}
+                    <a style="pointer-events: none;" href="" class="blog__btns--back"> <img src="{% static 'img/icons/arrow-back.svg' %}" alt="back icon">Back</a>
+                {% endif %}
+
+                {% if product_object_list.has_next %}
+                    <a href="?page={{ product_object_list.next_page_number }}" class="blog__btns--next">Next <img src="{% static 'img/icons/next-icon.svg' %}" alt="next icon"></a>
+                {% else %}
+                    <a style="pointer-events: none;" class="blog__btns--next">Next <img src="{% static 'img/icons/next-icon.svg' %}" alt="next icon"></a>
+                {% endif %}
+            </div>
+        </section>
+
+    {% endif %}>

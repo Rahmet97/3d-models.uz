@@ -1,0 +1,78 @@
+
+//register
+.form {
+	background: #F6F6F6;
+	padding: 5.5em 9em 5.5em;
+	max-width: 732px;
+	margin: 10px auto 0;
+	box-shadow: 0 0 1em #222;
+
+	&__item {
+		margin: 0 0 1.5em 0;
+		position: relative;
+	}
+
+	&__input {
+		display: block;
+		box-sizing: border-box;
+		width: 100%;
+		outline: none;
+		margin: 0;
+	}
+
+	&__input[type="text"],
+	[type="email"],
+	[type="password"] {
+		background: #fff;
+		border: 1px solid grey;
+		box-shadow: 0 0 5px rgba(111, 111, 118, 0.85);
+		font-size: 22px;
+		font-weight: bold;
+		padding: .8em 2em;
+		border-radius: 2px;
+	}
+
+	&__input[type="text"]:focus, [type="email"]:focus, [type="password"]:focus {
+		background: #fff;
+	}
+
+	&__submit {
+		margin-top: 30px;
+	}
+
+	&__submit[type="submit"] {
+		background: #0688FF;
+		box-shadow: 0 3px 0 0 darken(#0688FF, 10%);
+		border: none;
+		color: #fff;
+		cursor: pointer;
+		display: block;
+		font-size: 22px;
+		line-height: 1.6em;
+		outline: none;
+		width: 240px;
+		height: 62px;
+		border-radius: 60px;
+		text-shadow: 0 1px #0688FF;
+		font-weight: bold;
+		transition: all 0.3s;
+
+		&[type="submit"]:hover {
+			background: rgba(3, 139, 253, 0.84);
+			box-shadow: 0 1px 3px darken(#0688FF, 30%);
+			transition: all 0.3s;
+		}
+	}
+
+	&__title {
+		font-size: 22px;
+		color: #000;
+		font-weight: bold;
+		line-height: 128.9%;
+		padding-bottom: 40px;
+	}
+
+	&__desc {
+		color: #04D200;
+	}
+}

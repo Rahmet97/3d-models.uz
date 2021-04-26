@@ -1,0 +1,39 @@
+{% load static %}
+
+<footer class="footer">
+    <div class="footer__body">
+        <div class="footer__info footer__info--end">
+            <div class="footer__info--title footer__about--the">Biz haqimizda</div>
+            <div class="footer__about">	
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repudiandae, molestiae est placeat asperiores laudantium nobis numquam ipsa eius optio saepe totam sed sequi voluptatum quos architecto nostrum quaerat maiores consequuntur? Maiores quo consectetur soluta vero, nobis magnam est dolor illum quidem dolore ratione illo aperiam veniam provident ipsa officiis! Laborum!</p>
+            </div>
+        </div>
+        <div class="footer__info">
+            <a href="index.html" class="footer__info--logo"><img src="{% static 'img/logoii.png' %}" alt="footer logo"></a>
+            <div class="footer__info--title">Aloqa Ma'lumotlari</div>
+            <a href="tel:+99899 403-68-28" class="footer__info--subtitle">+99899 403-68-28</a>
+            <a href="tel:+99899 403-68-28" class="footer__info--subtitle">+99833 888-02-03</a>
+            <div class="footer__info--subtitle">khamidullaev@gmail.com</div>
+            <div class="footer__info--messangers footer__iconss">
+                <a href="#" class="footer__icon--item"><i class="fa fa-instagram"></i></a>
+                <a href="#" class="footer__icon--item"><i class="fa fa-youtube"></i></a>
+                <a href="#" class="footer__icon--item"><i class="fa fa-telegram"></i></a>
+                <a href="#" class="footer__icon--item"><i class="fa fa-facebook"></i></a>
+            </div>
+        </div>
+        <div class="footer__map">
+            <div class="mapouter">
+                <div class="gmap_canvas"><iframe width="700" height="360" id="gmap_canvas"
+                        src="https://maps.google.com/maps?q=uzbekistan%2C%20toshkent%2C%20mirzo%20ulugbek&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                        frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a
+                        href="https://2piratebay.org">free movies</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer__creators">
+        {% now 'Y' as current_year %}
+        <p>Barcha huquqlar himoyalangan <span> ©️</span>{{ current_year }} 3D-models </p>
+        <p>Sayt yaratuvchi - <a class="footer__company" href="#">Instant Company</a></p>
+    </div>
+</footer>

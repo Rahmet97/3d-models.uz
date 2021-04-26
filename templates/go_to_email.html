@@ -1,0 +1,94 @@
+{% extends "registration/base.html" %}
+{% load i18n %}
+{% load static %}
+
+	{% block css %}
+	<!-- icons-link -->
+		<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+			integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+		<!-- style-link -->
+		<link rel="stylesheet" href="{% static 'css/style2.css' %}">
+		<!-- style-link -->
+		<link rel="stylesheet" href="{% static 'css/style.css' %}">
+		<link rel="stylesheet" href="{% static 'css/main.css' %}">
+	{% endblock css %}
+
+	{% block title %}
+	  <title>{% trans "To'lov qilindi" %}</title>
+	{% endblock title %}
+
+	{% block bodyreset %}
+		{% get_current_language as LANGUAGE_CODE %}
+		<input type='hidden' id='language_type' value="{{ LANGUAGE_CODE }}">
+		
+		<section class="content">
+		
+			<!-- Navbar -->
+			{% include 'includes/navbar.html' %}
+			<!-- end Navbar -->
+
+		</section>
+
+		<style>
+			.payForm__btn {
+				margin: 25px auto 65px !important;
+			}
+		
+ 		</style>
+
+		<div class="payForm__body-2">
+			<p class="payForm__text">
+				{% trans "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultrices volutpat mollis vel diam proin at diam.	Lorem volutpat malesuada lobortis eget enim amet est id auctor. Lorem ipsum dolor sit amet,consectetur adipiscing elit. Ultrices volutpat mollis vel diam proin at diam. Lorem volutpat malesuada lobortis eget	enim amet est id auctor.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultrices volutpat mollis vel diam proin at diam. Lorem volutpat malesuada lobortis eget enim amet est id auctor." %}
+			</p>
+			<a href="/"><button class="payForm__btn">{% trans "Bosh sahifa" %}</button></a>
+			
+		</div>
+
+		<style>
+			.payForm__body-2 {
+				margin: 70px auto 0;
+				min-height: 35vh;
+				width: calc(100% - 20vw);
+				max-width: 1366px;
+			}
+	
+			.payForm__text {
+				font-family: Roboto;
+				font-size: 20px;
+				line-height: 159.9%;
+				text-align: center;
+				color: #0565BD;
+			}
+			.payForm__btn {
+				padding: 13px 35px;
+				margin-top: 60px;
+				margin-bottom: 50px;
+				position: absolute;
+				left: 50%;
+				transform: translateX(-50%);
+				text-align: center;
+				background: #05E600;
+				box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.31);
+				border-radius: 5px;
+				color: #fff;
+				font-size: 16px;
+				transition: all ease-in .3s;
+			}
+			.payForm__btn:hover {
+				background: #049e01;
+			}
+			.footer {
+				margin-top: 80px;
+			}
+		</style>
+	
+	{% endblock bodyreset %}
+	
+		<!--jQuery-->
+		<script src="jQuery/jquery.min.js"></script>
+		<script src="./jQuery/lips/owlcarousel2/owl.carousel.min.js"></script>
+		<script src="jQuery/jQuery.js"></script>
+	
+		<script src="js/swiper.min.js"></script>
+		<!--/jQuery-->
+		<script src="js/main.js"></script>

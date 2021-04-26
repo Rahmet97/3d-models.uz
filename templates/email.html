@@ -1,0 +1,78 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{% trans 'Yuklab Olish'%}</title>
+	<style>
+		.payForm__body-2 {
+			margin: 70px auto 0;
+			min-height: 30vh;
+			width: calc(100% - 20vw);
+			max-width: 1366px;
+		}
+
+		.payForm__text {
+			text-align: center;
+		}
+
+		.payForm__text h1 {
+			margin: 20px 0px 20px 0px;
+		}
+
+		.payForm__btn {
+			padding: 13px 40px;
+			margin: 60px auto 50px 40%;
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
+			text-align: center;
+			background: #05E600;
+			box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.31);
+			border-radius: 5px;
+			color: #fff;
+			font-size: 16px;
+			transition: all ease-in .3s;
+		}
+
+		.payForm__btn:hover {
+			background: #049e01;
+		}
+
+		.footer {
+			margin-top: 80px;
+		}
+
+		.payForm__img {
+			min-width: 300px !important;
+			width: calc(100% - 50vw);
+			margin: 0 auto;
+		}
+
+		.payForm__img img {
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+			object-position: center;
+		}
+	</style>
+</head>
+<body>
+	{% get_current_language as LANGUAGE_CODE %}
+	<input type='hidden' id='language_type' value="{{ LANGUAGE_CODE }}">
+	<div class="payForm__body-2">
+
+		
+		<div class="payForm__text">
+			<h1>{% trans "Siz bilan ishlaganimizdan xursandmiz" %}</h1>
+			<p>{% trans "Sotib olgan modellaringizni yuklab olish uchun quyidagi tugmani bosing!" %}</p>
+		</div>
+		<a href="{{ token_address }}">
+		<button class="payForm__btn">{% trans "Yuklab Olish" %}</button>
+		</a>
+	</div>
+</body>
+</html>

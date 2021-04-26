@@ -1,0 +1,228 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load thumbnail %}
+
+	{% block css %}
+		<!-- icons-link -->
+		<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+		<!-- style-link -->
+		<link rel="stylesheet" href="{% static 'fancbox/jquery.fancybox.min.css' %}">
+		<link rel="stylesheet" href="{% static 'css/style.css' %}">
+		<link rel="stylesheet" href="{% static 'css/style2.css' %}">
+		<link rel="stylesheet" href="{% static 'css/main.css' %}">
+	{% endblock css %}
+
+	{% block title %} <title>Mahsulot</title> {% endblock title %}
+	
+	{% block bodycontent %}
+
+		<section class="content">
+
+			<section class="content">
+
+				<!-- Navbar -->
+				{% include 'includes/navbar.html' %}
+				<!-- end Navbar -->
+
+			</section>
+
+		</section>
+
+		<section class="section__wrappers">
+
+			<!-- Images Container -->
+			<div class="container fancbox">
+				<div class="fancbox__top">
+					<a href="javascript:;" data-fancybox-trigger="gallery"  data-caption="{{ object.caption|default_if_none:'Active Image' }}">
+						{% if object.video_file %}
+							<video width='400' controls>
+								<source src="{{ object.video_file.url }}" type='video/mp4'>
+								Your browser does not support the video tag.
+							</video>
+						{% elif object.video_link %}
+							<object style="height: 390px; width: 640px">
+								<param name="movie" value="http://www.youtube.com/v/{{ object.extract_video_id }}?version=3">
+								<param name="allowFullScreen" value="true">
+								<param name="allowScriptAccess" value="always">
+								<embed src="http://www.youtube.com/v/{{ object.extract_video_id }}?version=3" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always" width="640" height="390">
+							</object>
+						{% else %}
+							<img class="fancboxss" src ="{{ object.image.url }}" alt = "rasm" />
+						{% endif %}
+						
+					</a>
+				</div>
+
+				<div class="fancbox__right">
+					{% for img in object.product_images.all %}
+						{% if forloop.counter == 1 %}
+							{% thumbnail object.image "1500" as bigimg %}
+								{% thumbnail object.image "150x150" crop="center" as smallimg %}
+									<a href="{{bigimg.url}}" data-fancybox="gallery" data-caption="{{ object.caption|default_if_none:'Active Image' }}">
+										<img class="fancboxs" src="{{smallimg.url}}" alt = "rasm">
+									</a>
+								{% endthumbnail %}
+							{% endthumbnail %}
+						{% endif %}
+						{% thumbnail img.image "1500" as big %}
+							{% thumbnail img.image "150x150" crop="center" as small %}
+								<a href="{{big.url}}" data-fancybox="gallery" data-caption="{{ img.caption|default_if_none:'Image' }}">
+									<img class="fancboxs" src="{{small.url}}" alt = "rasm">
+								</a>
+							{% endthumbnail %}
+						{% endthumbnail %}
+					{% empty %}
+					{% endfor %}
+				</div>
+			</div>
+			<!-- End Images Container -->
+	
+			<div class="slide">
+
+				<!-- Object Info -->
+				<div class="slide__about">
+					<h2 class="slide__title">{{ object.name }}<br>
+						<span class="slide__star slide__letter">
+							
+							{% if object.discount and object.paid %}
+								<small style="color: #aaaaaa"><del>{{ object.price }} so'm</del></small> {{ object.discount }} so'm
+							{% elif object.price  and object.paid %}
+								{{ object.price }} so'm
+							{% else %}
+								Bepul
+							{% endif %}
+								
+						</span>
+					</h2>
+
+					<h4 class="slide__texts">{{ object.short_info }}</h4>
+					<div class="description">
+						<p class="slide__text__last">{{ object.description|safe }}</p> 
+					</div>
+					
+				</div>
+				<!-- End Object Info -->
+
+				<div class="slide__btn">
+					{% if object.paid %}
+						<button type="submit" class="slide__buy">
+							<a href="{% url 'Core:payment-view' object.pk %}" >Sotib olish</a>
+						</button>
+						
+						<!-- <form action="{% url 'Core:payment-view' %}" method="get">
+							{% csrf_token %}
+							<button type="submit" onclick="send_amount('{{ object.price }}')" class="slide__buy">Sotib olish</button>
+						</form> -->
+						<button onclick="add_to_cart_view(this)" data-pk="{{ object.pk }}" data-action="add" data-pageid="product-page" type="submit" class="slide__bug add-to-basket popup">Savatchaga olish
+							<span class="popuptext" id="PopupNotification{{object.pk}}">
+								<a href="{% url 'login' %}?next={{request.path}}" class="text-white">Login</a> / <a href="{% url 'User:register' %}?next={{request.path}}">Sign Up</a>
+							</span>
+							<a href="{% url 'Core:card-view' %}?next={{request.path}}" class="popuptext" id="AlreadyAdded{{object.pk}}">Added To Cart</a>
+						</button>
+					{% else %}
+						<a href="{{ object.model_file.url }}" >
+							{% csrf_token %}
+							<button class="slide__buy"  onclick="download_counter(this)" id="{{ object.slug }}">Yuklab olish</button>
+						</a>
+					{% endif %}
+					
+				</div>
+			</div>
+		</section>
+
+		<!-- Script that calls download_counter method -->
+		<script>
+			function download_counter($this){
+				console.log("button clicked");
+				var request_data = $this.id;
+				console.log("data: " + request_data);
+				$.ajax({
+					type: 'GET',
+					url: "{% url 'Core:download_counter' %}",
+					data : { 
+						request_data: request_data,
+					},
+					success : function(json) {
+						$("#request-access").hide();
+						console.log("requested access complete");
+					}
+				});
+			}
+		</script>
+		<!-- End Script -->
+
+
+	{% endblock bodycontent %}
+
+	{% block js %} 
+		<!--jQuery-->
+		<script src="{% static 'jQuery/jquery.min.js' %}"></script>
+		<script src="{% static 'fancbox/jquery.fancybox.min.js' %}"></script>
+
+		<script>
+			function getCookie(name) {
+				var cookieValue = null;
+				if (document.cookie && document.cookie != '') {
+					var cookies = document.cookie.split(';');
+					for (var i = 0; i < cookies.length; i++) {
+						var cookie = jQuery.trim(cookies[i]);
+						// Does this cookie string begin with the name we want?
+						if (cookie.substring(0, name.length + 1) == (name + '=')) {
+							cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+							break;
+						}
+					}
+				}
+				return cookieValue;
+			}
+			var csrftoken = getCookie('csrftoken');
+			function csrfSafeMethod(method) {
+				// these HTTP methods do not require CSRF protection
+				return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+			}
+			$.ajaxSetup({
+				beforeSend: function(xhr, settings) {
+					if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+						xhr.setRequestHeader("X-CSRFToken", csrftoken);
+					}
+				}
+			});
+			function send_amount(amount){			
+				//$.ajax({
+				//	type: 'GET',
+				///	url: "{% url 'Core:payment-view' %}",
+				//	csrftoken: csrftoken,
+				//	data : {
+				//		amount: amount
+				//	},
+				//	success : function(json) {
+				//		console.log("amount sended successfully to payment-view");
+				
+						$.ajax({
+							type: 'GET',
+							url: "{% url 'Core:save_model' %}",
+							csrftoken: csrftoken,
+							data : {
+								model_quantity: 1,
+								single_price: amount,
+								total_price: 0
+							},
+							success : function(json) {
+								console.log("amount sended successfully to card_verify_code");
+							}
+						});
+					}
+				//});
+				
+			//}
+		</script>
+
+		<!--/jQuery-->
+		<!-- <script src="js/main.js"></script> -->
+		<!--/javascript-->
+
+		<!--    bundle js swiper-->
+		<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+		<script src="{% static 'js/bundle.js' %}"></script>
+		<script src="{% static 'js/main.js' %}"></script>
+	{% endblock js %} 

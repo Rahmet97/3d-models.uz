@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static %}
+
+	{% block css %} 
+	<!-- icons-link -->
+		<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+			integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+		<!-- style-link -->
+		<link rel="stylesheet" href="{% static 'css/style2.css' %}">
+		<!-- style-link -->
+		<link rel="stylesheet" href="{% static 'css/style.css' %}">
+		<link rel="stylesheet" href="{% static 'css/main.css' %}">
+	{% endblock css %}
+
+	{% block title %}
+	  <title>Biz Haqimizda</title>
+	{% endblock title %}
+
+	{% block bodycontent %}
+
+		<section class="content">
+			
+			<!-- Navbar -->
+			{% include 'includes/navbar.html' %}
+			<!-- end Navbar -->
+
+		</section>
+
+		<section class="about ">
+			<h1 class="about__title">Biz haqimizda</h1>
+
+			{% for object in object_list %}
+				<div class=" about__line  {% cycle ' ' 'about__line__right' %}">
+					<div class="about__me">
+						<h3 class="about__titles">{{ object.title }}</h3>
+						<div class="about__desc">{{ object.description|safe }} </div>
+					</div>
+					<div class=" about__img{% cycle '2' '1' %}">
+						{% if object.video %}
+							<video width="540" height="400" controls>
+								<source src="{{ object.video.url }}" type="video/mp4">
+								<source src="{{ object.video.url }}" type="video/ogg">
+							Your browser does not support the video tag.
+							</video> 
+						{% else %}
+							<img src="{{ object.imageURL }}" alt="">
+						{% endif %}
+					</div>
+				</div>
+			{% empty %}
+				<h3 style="margin-bottom: 15%; color: gray">There is no Info ;)</h3>
+			{% endfor %}
+
+		</section>
+		<style>	
+			.about__line__right h3 {
+				margin-left: 128px;
+			}
+			.about__img1 img {
+				width: 580px;
+			}
+			.about__line__right p {
+				margin: 0;
+			}
+			.about__line {
+				flex-direction: row !important;
+			}
+			.about__line__right {
+				flex-direction: row-reverse !important;
+			}
+			
+		</style>
+		
+
+	{% endblock bodycontent %}
+
+	{% block js %} 
+		<!--jQuery-->
+		<script src="{% static 'jQuery/jquery.min.js' %}"></script>
+		<script src="{% static 'jQuery/lips/owlcarousel2/owl.carousel.min.js' %}"></script>
+		<script src="{% static 'jQuery/jQuery.js' %}"></script>
+
+
+		<!--/jQuery-->
+		<!-- <script src="js/bundle.js"></script> -->
+		<!--/javascript-->
+
+		<!--    bundle js swiper-->
+		<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+		<script src="{% static 'js/bundle.js' %}"></script>
+		<!--jQuery-->
+	{% endblock js %}

@@ -1,0 +1,111 @@
+.title {
+	height: 82%;
+}
+
+.sale {
+	margin: 0px 0px 100px 0px;
+	&__title {
+		font-size: 40px;
+		margin: 40px 0px 0px 33%;
+		text-align: center;
+		background-color: #fff;
+		display: inline-block;
+		padding: 0 20px;
+	}
+	&__line {
+		height: 3px;
+		background: rgba(58, 56, 56, 0.7);
+		margin: -20px 0px 80px 0px;
+	}
+
+	&__cards {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+		margin: 0px 0px 80px 0px;
+	}
+
+	&__card {
+		width: 430px;
+		cursor: pointer;
+		border: 1px solid #EDEDED;
+	}
+
+	&__card--title {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		color: rgba(255, 255, 255, 0.87);
+		padding: 0px 20px 10px 0px;
+		background: rgba(0, 0, 0, 0.48);
+		margin: 0px 0px 15px 0px;
+		font-size: 18px;
+		opacity: 0;
+		transition: all ease-in .2s;
+		&:hover {
+			background: rgba(0, 0, 0, 0.35);
+		}
+	}
+
+	// &__card--img {
+		
+	// }
+
+	// &__card--text {
+	// }
+
+	// &__card--curent {
+	// }
+	&__imgblog {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 430px;
+		height: 230px;
+	}
+	&__card:hover  &__card--title {
+		transition: all ease-in .2s;
+		margin: 0px 0px 15px 0px;
+		opacity: 1;
+	}
+	&__card:hover  &__card--footer {
+		transition: all ease-in .2s;
+		opacity: 1;
+	}
+	&__card:hover &__img {
+		transition: transform .2s ease-in;
+		transform: scale(1.1);
+	}
+	&__img {
+		object-fit: cover;
+		object-position: center;
+		width: 375px;
+		height: 165px;
+		padding: 0px 0px 15px 0px;
+		transition: transform .2s ease-in;
+
+	}
+
+	&__card--footer {
+		text-align: center;
+		background: rgba(0, 0, 0, 0.48);
+		padding: 12px 0px 0px 0px;
+		color: #ffffff;
+		font-size: 18px;
+		opacity: 0;
+		transition: all ease-in .2s;
+		&:hover {
+			background: rgba(0, 0, 0, 0.35);
+		}
+		&:after {
+			content: '';
+			background-image: url(../img/icons/sale_arrow--dawn.svg);
+			display: block;
+			width: 30px;
+			height: 30px;
+			background-repeat: no-repeat;
+			margin: 8px auto 0;
+		}
+	}
+}

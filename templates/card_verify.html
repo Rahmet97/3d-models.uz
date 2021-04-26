@@ -1,0 +1,332 @@
+{% extends "registration/base.html" %}
+{% load i18n %}
+{% load static %}
+
+	{% block css %}
+	<!-- icons-link -->
+		<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+			integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+		<!-- style-link -->
+		<link rel="stylesheet" href="{% static 'css/style2.css' %}">
+		<!-- style-link -->
+		<link rel="stylesheet" href="{% static 'css/style.css' %}">
+		<link rel="stylesheet" href="{% static 'css/main.css' %}">
+	{% endblock css %}
+
+	{% block title %}
+	  <title>{% trans "To'lovni tasdiqlash" %}</title>
+	{% endblock title %}
+
+	{% block bodycontent %}
+
+  {% get_current_language as LANGUAGE_CODE %}
+  <input type='hidden' id='language_type' value="{{ LANGUAGE_CODE }}">
+
+		<section class="content">
+
+			<!-- Navbar -->
+			{% include 'includes/navbar.html' %}
+			<!-- end Navbar -->
+
+		</section>
+        <div class="verify">
+            <div class="payForm__body-2">
+                <h2>{% trans "Tasdiqlash kodini kiriting" %}</h2>
+                <form action="{% url 'download:card_verify_code' %}" method="POST">
+                    {% csrf_token %}
+                    <label for="verify">{% trans "Tasdiqlash kodi" %}</label>
+                    <input type="number" name="verify_code" id="verify"/><br>
+                    <input type="hidden" name="token" value="{{token}}">
+                    <input type="hidden" name="amount" value="{{amount}}">
+                    <input type="hidden" name="blogid" value="{{blogid}}">
+
+                    <input type="submit" class="payForm__btn" value="OK">
+                </form>
+            </div>
+            <div id="counter"></div>
+        </div>
+		<style>
+            .verify {
+                display: flex;
+                flex-wrap: wrap;
+            }
+            #counter {
+                display: flex;
+                align-items: center;
+                /* width: 50%; */
+            }
+            .base-timer {
+              position: relative;
+              width: 105px;
+            }
+
+            .base-timer__svg {
+              transform: scaleX(-1);
+            }
+
+            .base-timer__circle {
+              fill: none;
+              stroke: none;
+            }
+
+            .base-timer__path-elapsed {
+              stroke-width: 7px;
+              stroke: grey;
+            }
+
+            .base-timer__path-remaining {
+              stroke-width: 7px;
+              stroke-linecap: round;
+              transform: rotate(90deg);
+              transform-origin: center;
+              transition: 1s linear all;
+              fill-rule: nonzero;
+              stroke: currentColor;
+            }
+
+            .base-timer__path-remaining.green {
+              color: rgb(65, 184, 131);
+            }
+
+            .base-timer__path-remaining.orange {
+              color: orange;
+            }
+
+            .base-timer__path-remaining.red {
+              color: red;
+            }
+
+            .base-timer__label {
+              position: absolute;
+              width: 105px;
+              height: 105px;
+              top: 0;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 32px;
+            }
+            input {
+                padding: 5px 2px 5px 10px;
+                font-size: 18px;
+                outline: none;
+                border: 1px solid silver;
+                border-radius: 8px;
+                margin: 30px 0;
+            }
+
+            .verification {
+                display: flex;
+                flex-direction: column;
+                margin: 50px 0;
+            }
+            .wrapp {
+                margin-top: 30px;
+                border: 1px solid #777;
+                border-radius: 3px;
+                width: 270px;
+                box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.251);
+            }
+            .fa {
+                color: #43A049;
+                font-size: 20px;
+                padding: 8px;
+                margin-left: -4px;
+                cursor: pointer;
+            }
+
+            .payForm__body-2 {
+                margin: 40px 160px;
+                width: 50%;
+                max-width: 1366px;
+            }
+            @media (max-width: 414px) {
+              .payForm__body-2 {
+                margin: 40px 60px;
+              }
+              input {
+                margin: 24px 0 0;
+              }
+              .base-timer {
+                margin-left: 55px;
+              }
+            }
+            @media (max-width: 375px) {
+              .payForm__body-2 {
+                margin: 40px 40px;
+              }
+              .base-timer {
+                margin-left: 38px;
+              }
+            }
+
+            .footer {
+                margin-top: 80px;
+            }
+            button .btn {
+                padding: 13px 35px;
+
+                text-transform: uppercase;
+                text-align: center;
+                background: #05E600;
+                box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.31);
+                border-radius: 5px;
+                color: #fff;
+                font-size: 16px;
+                transition: all ease-in .3s;
+            }
+            .payForm__btn {
+				text-transform: uppercase;
+				padding: 10px 35px;
+				background: #05E600;
+				box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.31);
+				border-radius: 86px;
+				color: #fff;
+				font-size: 16px;
+				transition: all ease-in .3s;
+			}
+			.payForm__btn:hover {
+				background: #049e01;
+			}
+        </style>
+	{% endblock bodycontent %}
+
+	{% block js %}
+		<!--jQuery-->
+		<script src="{% static 'jQuery/jquery.min.js' %}"></script>
+		<script src="{% static 'jQuery/lips/owlcarousel2/owl.carousel.min.js' %}"></script>
+		<script src="{% static 'jQuery/jQuery.js' %}"></script>
+        <script>
+            const FULL_DASH_ARRAY = 283;
+            const WARNING_THRESHOLD = 20;
+            const ALERT_THRESHOLD = 10;
+
+            const COLOR_CODES = {
+              info: {
+                color: "green"
+              },
+              warning: {
+                color: "orange",
+                threshold: WARNING_THRESHOLD
+              },
+              alert: {
+                color: "red",
+                threshold: ALERT_THRESHOLD
+              }
+            };
+
+            const TIME_LIMIT = 60;
+            let timePassed = 0;
+            let timeLeft = TIME_LIMIT;
+            let timerInterval = null;
+            let remainingPathColor = COLOR_CODES.info.color;
+
+            document.getElementById("counter").innerHTML = `
+            <div class="base-timer">
+              <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <g class="base-timer__circle">
+                  <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
+                  <path
+                    id="base-timer-path-remaining"
+                    stroke-dasharray="283"
+                    class="base-timer__path-remaining ${remainingPathColor}"
+                    d="
+                      M 50, 50
+                      m -45, 0
+                      a 45,45 0 1,0 90,0
+                      a 45,45 0 1,0 -90,0
+                    "
+                  ></path>
+                </g>
+              </svg>
+              <span id="base-timer-label" class="base-timer__label">${formatTime(
+                timeLeft
+              )}</span>
+            </div>
+            `;
+
+            startTimer();
+
+            function onTimesUp() {
+              /*clearInterval(timerInterval);*/
+                window.location.replace("{% url 'Core:payment-view' %}");
+            }
+
+            function startTimer() {
+              timerInterval = setInterval(() => {
+                timePassed = timePassed += 1;
+                timeLeft = TIME_LIMIT - timePassed;
+                document.getElementById("base-timer-label").innerHTML = formatTime(
+                  timeLeft
+                );
+                setCircleDasharray();
+                setRemainingPathColor(timeLeft);
+
+                if (timeLeft === 0) {
+                  onTimesUp();
+                }
+              }, 1000);
+            }
+
+            function formatTime(time) {
+              const minutes = Math.floor(time / 60);
+              let seconds = time % 60;
+
+              if (seconds < 10) {
+                seconds = `0${seconds}`;
+              }
+
+              return `${minutes}:${seconds}`;
+            }
+
+            function setRemainingPathColor(timeLeft) {
+              const { alert, warning, info } = COLOR_CODES;
+              if (timeLeft <= alert.threshold) {
+                document
+                  .getElementById("base-timer-path-remaining")
+                  .classList.remove(warning.color);
+                document
+                  .getElementById("base-timer-path-remaining")
+                  .classList.add(alert.color);
+              } else if (timeLeft <= warning.threshold) {
+                document
+                  .getElementById("base-timer-path-remaining")
+                  .classList.remove(info.color);
+                document
+                  .getElementById("base-timer-path-remaining")
+                  .classList.add(warning.color);
+              }
+            }
+
+            function calculateTimeFraction() {
+              const rawTimeFraction = timeLeft / TIME_LIMIT;
+              return rawTimeFraction - (1 / TIME_LIMIT) * (1 - rawTimeFraction);
+            }
+
+            function setCircleDasharray() {
+              const circleDasharray = `${(
+                calculateTimeFraction() * FULL_DASH_ARRAY
+              ).toFixed(0)} 283`;
+              document
+                .getElementById("base-timer-path-remaining")
+                .setAttribute("stroke-dasharray", circleDasharray);
+            }
+        </script>
+
+
+		<!--/jQuery-->
+		<!-- <script src="js/bundle.js"></script> -->
+		<!--/javascript-->
+
+		<!--    bundle js swiper-->
+		<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+		<script src="{% static 'js/bundle.js' %}"></script>
+        <script src="{% static 'jQuery/jquery.min.js' %}"></script>
+		<script src="{% static 'jQuery/lips/owlcarousel2/owl.carousel.min.js' %}"></script>
+		<script src="{% static 'jQuery/jQuery.js' %}"></script>
+
+		<script src="{% static 'js/swiper.min.js' %}"></script>
+		<!--/jQuery-->
+		<script src="{% static 'js/main.js' %}"></script>
+		<!--jQuery-->
+	{% endblock js %}
