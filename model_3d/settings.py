@@ -17,7 +17,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'g%ej^l%6^4t04#+_v+c-308!fb^u@b6r)bg)ganwt9y)@hs9jn'
+SECRET_KEY = '<your_secret_key>'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -80,8 +80,8 @@ INSTALLED_APPS = [
 
 PAYME_SETTINGS = {
     'DEBUG': False,  # True - test mode, False - production mode
-    'ID': '6032c2f5a10b214d8d11f01b',
-    'SECRET_KEY': 'HI2w0cuR@ivnSvOut4ZIq%vIzwGrvhuY?ay1',
+    'ID': '<your_cash_id>',
+    'SECRET_KEY': '<your_cash_secret_key>',
     'ACCOUNTS': {
         'KEY_1': 'order_id',
         'KEY_2': '',
@@ -143,8 +143,8 @@ DATABASES = {
      'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'model3d_db',
-        'USER': 'models3d_admin',
-        'PASSWORD': 'Mexroj3dmodels.uz',
+        'USER': 'user',
+        'PASSWORD': 'password',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -224,11 +224,11 @@ ACCOUNT_USERNAME_BLACKLIST = ['administrator', 'help',
                                                '@', 'master']
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST_USER = "testingemail286@gmail.com"
+EMAIL_HOST_USER = "your_email"
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_PASSWORD = 'companyinstant2020'
+EMAIL_HOST_PASSWORD = 'password'
 
 CELERY_BROKER_URL = 'redis://localhost:6379'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'
